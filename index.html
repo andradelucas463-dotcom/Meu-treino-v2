@@ -2,45 +2,53 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0b0d12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Meu Treino">
 <link rel="manifest" href="./manifest.json">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230b0d12'/%3E%3Cg fill='%2322c55e'%3E%3Crect x='76' y='206' width='60' height='100' rx='14'/%3E%3Crect x='376' y='206' width='60' height='100' rx='14'/%3E%3Crect x='136' y='246' width='240' height='20' rx='6'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230b0d12'/%3E%3Cg fill='%2322c55e'%3E%3Crect x='76' y='206' width='60' height='100' rx='14'/%3E%3Crect x='376' y='206' width='60' height='100' rx='14'/%3E%3Crect x='136' y='246' width='240' height='20' rx='6'/%3E%3C/g%3E%3C/svg%3E">
 <title>Meu Treino Pro 💪</title>
 <style>
   :root {
     --bg: #0b0d12; --bg2: #0f1218; --card: #171a22; --card2: #1e222d;
     --border: #262b38; --text: #e8ebf2; --muted: #7f889e;
     --accent: #22c55e; --accent-dark: #15803d; --danger: #ef4444; --warn: #f59e0b;
+    --info: #3b82f6; --gold: #fbbf24;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased; }
-  body { padding-bottom: 220px; }
-  .app { max-width: 680px; margin: 0 auto; padding: 20px 16px; }
-  
+  body { padding-bottom: calc(240px + env(safe-area-inset-bottom)); }
+  .app { max-width: 680px; margin: 0 auto; padding: calc(20px + env(safe-area-inset-top)) 16px 20px; }
+
   .title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 10px; flex-wrap: wrap; }
   h1 { font-size: 22px; margin: 0; }
   .header-actions { display: flex; gap: 6px; flex-wrap: wrap; }
   .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer; white-space: nowrap; font-weight: 600;}
   .btn-ghost:active { background: var(--card); }
-  
+
+  .banner { padding: 10px 12px; border-radius: 10px; font-size: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .banner-warn { background: #3b2e0f; border: 1px solid var(--warn); color: var(--warn); }
+  .banner-info { background: #0f1e3d; border: 1px solid var(--info); color: #93c5fd; }
+  .banner button { background: transparent; border: none; color: inherit; font-size: 18px; cursor: pointer; padding: 0; line-height: 1; }
+  .banner .banner-action { font-size: 12px; padding: 4px 10px; border: 1px solid currentColor; border-radius: 6px; font-weight: 700; cursor: pointer; background: transparent; color: inherit; }
+
   .tabs-container { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
   .tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; flex: 1; }
   .tabs::-webkit-scrollbar { display: none; }
   .tab { flex: 0 0 auto; min-width: 48px; background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 10px 12px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.15s; }
   .tab.active { background: var(--accent); border-color: var(--accent); color: #0b0d12; }
   .tab-btn-add { background: transparent; border: 1px dashed var(--border); color: var(--muted); width: 38px; height: 38px; border-radius: 10px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  
+
   .day-header { margin: 20px 0 12px; display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; }
   .day-header h2 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 6px; }
   .day-subtitle { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
-  .day-actions { display: flex; gap: 6px; }
+  .day-actions { display: flex; gap: 6px; flex-wrap: wrap; }
   .btn-mini { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 8px; border-radius: 6px; font-size: 12px; cursor: pointer; }
-  
+
   .progress-wrap { margin-bottom: 16px; }
   .progress-info { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
   .progress-info strong { color: var(--text); }
@@ -48,16 +56,17 @@
   .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
 
   .exercise { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 10px; transition: opacity 0.2s, border-color 0.2s; }
-  .exercise.completed { opacity: 0.7; border-color: var(--accent-dark); }
+  .exercise.completed { opacity: 0.75; border-color: var(--accent-dark); }
   .exercise-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
   .exercise-title-wrap { flex: 1; }
-  .exercise-name { font-size: 15px; font-weight: 600; line-height: 1.3; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .btn-icon { background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 2px; }
+  .exercise-name { font-size: 15px; font-weight: 600; line-height: 1.3; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+  .btn-icon { background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 4px; }
   .btn-icon:hover { color: var(--text); }
-  .btn-move { background: var(--card2); border: 1px solid var(--border); color: var(--muted); font-size: 10px; padding: 4px 6px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center;}
+  .btn-move { background: var(--card2); border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 4px 6px; border-radius: 6px; cursor: pointer; }
   .exercise-meta { font-size: 12px; color: var(--muted); white-space: nowrap; }
   .exercise-muscles { font-size: 11px; color: #86efac; margin-bottom: 10px; font-style: italic; }
-  
+  .pr-badge { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--gold); color: #0b0d12; font-weight: 800; margin-left: 4px; }
+
   .exercise-notes { width: 100%; padding: 8px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--warn); font-size: 12px; margin-bottom: 10px; resize: none; font-family: inherit; }
   .exercise-notes::placeholder { color: #4b5563; }
 
@@ -66,19 +75,26 @@
   .last-session.has { color: #86efac; }
   .btn-bump { background: var(--card2); border: 1px solid var(--border); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; }
 
-  .set-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
-  .set-check { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--border); background: transparent; color: var(--muted); font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.12s; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .set-row { display: flex; align-items: center; gap: 6px; padding: 5px 0; }
+  .set-label { width: 22px; text-align: center; font-size: 11px; color: var(--muted); font-weight: 700; }
+  .set-label.warmup { color: var(--warn); }
+  .set-check { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border); background: transparent; color: var(--muted); font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.12s; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .set-check.done { background: var(--accent); border-color: var(--accent); color: #0b0d12; }
-  .set-input { width: 62px; padding: 8px 4px; text-align: center; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; -moz-appearance: textfield; }
+  .set-check.warmup.done { background: var(--warn); border-color: var(--warn); }
+  .set-input { width: 66px; padding: 8px 4px; text-align: center; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 600; }
+  .set-input.reps { width: 60px; }
   .set-input:focus { outline: none; border-color: var(--accent); }
-  .set-input::placeholder { color: #4b5563; }
-  .set-unit { font-size: 12px; color: var(--muted); font-weight: 600; }
-  .set-x { color: var(--muted); font-weight: 700; font-size: 13px; }
+  .set-input::placeholder { color: #4b5563; font-weight: 400; font-size: 11px; }
+  .set-unit { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .set-x { color: var(--muted); font-weight: 700; font-size: 12px; }
+  .set-mode { background: none; border: none; color: var(--muted); font-size: 10px; cursor: pointer; padding: 2px; }
 
   .btn-add-exercise { width: 100%; padding: 12px; margin-bottom: 10px; background: var(--card2); border: 1px dashed var(--border); border-radius: 10px; color: var(--accent); font-size: 14px; font-weight: 700; cursor: pointer; }
-  .btn-finish { width: 100%; padding: 14px; margin: 18px 0 8px; background: var(--accent); border: none; border-radius: 12px; color: #0b0d12; font-size: 15px; font-weight: 800; cursor: pointer; }
+  .btn-repeat { width: 100%; padding: 10px; margin-bottom: 10px; background: transparent; border: 1px solid var(--info); color: var(--info); border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .btn-finish { width: 100%; padding: 14px; margin: 8px 0; background: var(--accent); border: none; border-radius: 12px; color: #0b0d12; font-size: 15px; font-weight: 800; cursor: pointer; }
+  .btn-finish:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-rest { width: 100%; padding: 10px; margin-bottom: 10px; background: transparent; border: 1px solid var(--warn); color: var(--warn); border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
 
-  /* Modal Genérico */
   .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 150; display: none; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
   .modal { background: var(--card); width: 100%; max-width: 450px; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; }
@@ -86,7 +102,8 @@
   .modal-title { font-size: 16px; font-weight: 700; margin: 0; }
   .modal-close { background: transparent; border: none; color: var(--muted); font-size: 24px; cursor: pointer; padding: 0; line-height: 1; }
   .modal-body { padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-  
+  .modal-footer { padding: 16px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+
   .form-group { display: flex; flex-direction: column; gap: 4px; }
   .form-group label { font-size: 12px; color: var(--muted); font-weight: 600; }
   .form-input, .form-select { width: 100%; padding: 10px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; }
@@ -94,32 +111,69 @@
   .form-row { display: flex; gap: 10px; }
   .form-row .form-group { flex: 1; }
 
-  .modal-footer { padding: 16px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
   .btn-primary { background: var(--accent); color: #0b0d12; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
   .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
-  .btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+  .btn-danger { background: var(--danger); color: #fff; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+  .btn-danger-outline { background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
 
-  /* Listas de Seleção */
-  .option-list { display: flex; flex-direction: column; gap: 6px; max-height: 250px; overflow-y: auto; }
-  .option-item { background: var(--bg2); border: 1px solid var(--border); padding: 12px; border-radius: 8px; color: var(--text); font-size: 14px; cursor: pointer; text-align: left; }
+  .option-list { display: flex; flex-direction: column; gap: 6px; max-height: 300px; overflow-y: auto; }
+  .option-item { background: var(--bg2); border: 1px solid var(--border); padding: 12px; border-radius: 8px; color: var(--text); font-size: 14px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; gap: 8px;}
   .option-item.current { border-color: var(--accent); background: rgba(34,197,94,0.1); }
   .option-item:active { background: var(--card); }
 
   .history-empty { text-align: center; color: var(--muted); padding: 40px 20px; font-size: 14px; }
-  .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--accent); color: #0b0d12; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; z-index: 200; transition: transform 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.4); max-width: 90vw; text-align: center; }
-  .toast.show { transform: translateX(-50%) translateY(0); }
 
-  /* Timer */
+  .toast { position: fixed; top: calc(20px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%) translateY(-100px); padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; z-index: 200; transition: transform 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.4); max-width: 90vw; text-align: center; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--accent); color: #0b0d12; }
+  .toast.error { background: var(--danger); color: #fff; }
+  .toast.warn { background: var(--warn); color: #0b0d12; }
+
   .timer-bar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--bg2); border-top: 1px solid var(--border); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); z-index: 100; display: flex; flex-direction: column; gap: 10px; max-width: 680px; margin: 0 auto; }
   .timer-bar.running { border-top-color: var(--accent); }
+  .timer-bar.ringing { animation: ring 0.4s ease-in-out 6; }
+  @keyframes ring { 0%,100% { background: var(--bg2); } 50% { background: #7f1d1d; } }
   .timer-row { display: flex; align-items: center; gap: 6px; }
   .timer-display { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 700; letter-spacing: 0.5px; flex: 1; }
   .timer-bar.running .timer-display { color: var(--accent); }
   .timer-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 10px; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
   .timer-btn.primary { background: var(--accent); border-color: var(--accent); color: #0b0d12; width: 48px; height: 44px; font-size: 18px; }
+  .timer-btn.muted { color: var(--muted); }
   .presets { display: flex; gap: 6px; }
   .preset { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 8px 0; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
   .preset.active { background: var(--accent-dark); border-color: var(--accent); color: #fff; }
+
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+  .chart-card h3 { margin: 0 0 10px; font-size: 15px; }
+  .chart-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+  .chart-tab { flex: 1; padding: 8px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; }
+  .chart-tab.active { background: var(--accent-dark); border-color: var(--accent); color: #fff; }
+  .chart-canvas { width: 100%; height: 200px; display: block; }
+  .history-filters { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; }
+  .filter-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #0b0d12; }
+
+  .history-item { background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 10px; overflow: hidden; }
+  .history-summary { padding: 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .history-date { font-size: 14px; font-weight: 600; }
+  .history-info { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .history-chevron { color: var(--muted); font-size: 12px; transition: transform 0.2s; }
+  .history-item.open .history-chevron { transform: rotate(90deg); }
+  .history-details { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
+  .history-item.open .history-details { display: block; }
+  .history-ex { padding: 8px 0; border-bottom: 1px solid var(--card2); }
+  .history-ex-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
+  .history-ex-sets { font-size: 12px; color: var(--muted); }
+  .history-ex-note { font-size: 11px; color: var(--warn); font-style: italic; margin-top: 4px; }
+  .btn-small-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); font-size: 10px; padding: 2px 6px; border-radius: 4px; cursor: pointer; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+  .stat-value { font-size: 20px; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .summary-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--card2); font-size: 14px; }
+  .summary-item strong { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -133,20 +187,21 @@
       <button class="btn-ghost" id="btnResetAll" style="color:var(--danger); border-color:var(--danger);">Zerar</button>
     </div>
   </div>
-  
+  <div id="updateBanner"></div>
+  <div id="backupReminder"></div>
   <div class="tabs-container">
     <div class="tabs" id="tabs"></div>
     <button class="tab-btn-add" id="btnAddDay" title="Adicionar Dia">+</button>
   </div>
-  
   <div id="main"></div>
 </div>
 
-<input type="file" id="fileInput" accept=".json" style="display:none">
+<input type="file" id="fileInput" accept=".json,application/json" style="display:none">
 
 <div class="timer-bar" id="timerBar">
   <div class="timer-row">
     <div class="timer-display" id="timerDisplay">01:00</div>
+    <button class="timer-btn muted" id="muteBtn" title="Som">🔔</button>
     <button class="timer-btn" data-action="-15">−15</button>
     <button class="timer-btn" data-action="+15">+15</button>
     <button class="timer-btn" id="resetTimer">↺</button>
@@ -175,7 +230,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============ BANCO DE DADOS AMPLO DE EXERCÍCIOS ============ */
+/* ============ BANCO DE EXERCÍCIOS ============ */
 const dbExercicios = {
   "Peito": {
     "Supino Reto (Barra)": ["Peitoral Maior", "Tríceps, Deltoide Anterior"],
@@ -253,9 +308,9 @@ const dbExercicios = {
     "Rosca Inversa": ["Braquiorradial, Bíceps", "Braquial"]
   },
   "Tríceps": {
-    "Tríceps na Polia (Corda)": ["Tríceps (Todas as Cabeças)", "Nenhum"],
-    "Tríceps na Polia (Barra)": ["Tríceps (Todas as Cabeças)", "Nenhum"],
-    "Tríceps Testa": ["Tríceps (Todas as Cabeças)", "Nenhum"],
+    "Tríceps na Polia (Corda)": ["Tríceps", "Nenhum"],
+    "Tríceps na Polia (Barra)": ["Tríceps", "Nenhum"],
+    "Tríceps Testa": ["Tríceps", "Nenhum"],
     "Tríceps Francês": ["Tríceps (Cabeça Longa)", "Nenhum"],
     "Tríceps Coice": ["Tríceps (Cabeça Lateral)", "Nenhum"],
     "Tríceps Mergulho (Banco)": ["Tríceps", "Peitoral Inferior, Deltoide Anterior"],
@@ -280,7 +335,6 @@ const dbExercicios = {
   }
 };
 
-// O Treino Original que você pediu para deixar guardado
 const defaultTreinos = [
   { id: "segunda", dia: "Segunda", nome: "Upper A — Força", tipo: "força", descanso: 120,
     exercicios: [
@@ -289,7 +343,7 @@ const defaultTreinos = [
       { id: "e3", nome: "Desenvolvimento (Máquina)", main: "Deltoide Anterior, Deltoide Lateral", sec: "Tríceps", series: 3, reps: "6–8" },
       { id: "e4", nome: "Remada Baixa (Triângulo)", main: "Latíssimo, Romboides", sec: "Bíceps", series: 3, reps: "8–10" },
       { id: "e5", nome: "Elevação Lateral (Halteres)", main: "Deltoide Lateral", sec: "Nenhum", series: 2, reps: "12–15" }
-    ] 
+    ]
   },
   { id: "terca", dia: "Terça", nome: "Lower A — Força", tipo: "força", descanso: 120,
     exercicios: [
@@ -298,13 +352,13 @@ const defaultTreinos = [
       { id: "e3", nome: "Leg Press 45°", main: "Quadríceps, Glúteos", sec: "Isquiotibiais", series: 3, reps: "8–10" },
       { id: "e4", nome: "Cadeira Flexora", main: "Isquiotibiais", sec: "Panturrilha", series: 2, reps: "10–12" },
       { id: "e5", nome: "Panturrilha em Pé", main: "Gastrocnêmio", sec: "Sóleo", series: 3, reps: "12–15" }
-    ] 
+    ]
   },
-  { id: "quarta", dia: "Quarta", nome: "Descanso ou Leve Opcional", tipo: "recuperação", descanso: 60,
+  { id: "quarta", dia: "Quarta", nome: "Descanso ou Leve", tipo: "recuperação", descanso: 60,
     exercicios: [
       { id: "e1", nome: "Panturrilha Sentado", main: "Sóleo", sec: "Gastrocnêmio", series: 2, reps: "15–20" },
-      { id: "e2", nome: "Prancha", main: "Reto Abdominal, Transverso", sec: "Oblíquos", series: 2, reps: "30-45s" }
-    ] 
+      { id: "e2", nome: "Prancha", main: "Reto Abdominal, Transverso", sec: "Oblíquos", series: 2, reps: "30s" }
+    ]
   },
   { id: "quinta", dia: "Quinta", nome: "Upper B — Hipertrofia", tipo: "hipertrofia", descanso: 90,
     exercicios: [
@@ -315,7 +369,7 @@ const defaultTreinos = [
       { id: "e5", nome: "Elevação Lateral (Halteres)", main: "Deltoide Lateral", sec: "Nenhum", series: 3, reps: "12–20" },
       { id: "e6", nome: "Rosca Direta (Barra)", main: "Bíceps Braquial", sec: "Braquial", series: 2, reps: "10–12" },
       { id: "e7", nome: "Tríceps na Polia (Corda)", main: "Tríceps", sec: "Nenhum", series: 2, reps: "10–15" }
-    ] 
+    ]
   },
   { id: "sexta", dia: "Sexta", nome: "Lower B — Hipertrofia", tipo: "hipertrofia", descanso: 90,
     exercicios: [
@@ -325,73 +379,418 @@ const defaultTreinos = [
       { id: "e4", nome: "Cadeira Flexora", main: "Isquiotibiais", sec: "Panturrilha", series: 3, reps: "10–12" },
       { id: "e5", nome: "Cadeira Abdutora", main: "Glúteo Médio, Mínimo", sec: "Nenhum", series: 2, reps: "15–20" },
       { id: "e6", nome: "Panturrilha Sentado", main: "Sóleo", sec: "Gastrocnêmio", series: 3, reps: "15–20" }
-    ] 
+    ]
   }
 ];
 
 /* ============ ESTADO ============ */
-const STORAGE_KEY = "treinoApp_v8";
+const STORAGE_KEY = "treinoApp_v11";
+const LEGACY_KEYS = ["treinoApp_v10","treinoApp_v9","treinoApp_v8","treinoApp_v7","treinoApp_v6"];
+const DATA_VERSION = 11;
+const TIMER_KEY = "treinoTimer_v11";
+const LEGACY_INSTALL_KEY = "treinoApp_v11_firstLoad";
 
 let state = loadState();
-let currentTab = state._tab || getToday();
+let currentTab = state._tab || getTodayTab();
+let timerState = { duration: 60, remaining: 60, running: false, endTime: null, muted: false, interval: null };
+let wakeLock = null;
+let archivedInFlight = false;
+let audioCtx = null;
+let swUpdateAvailable = false;
 
-function getToday() { const map = { 1: "segunda", 2: "terca", 3: "quarta", 4: "quinta", 5: "sexta" }; return map[new Date().getDay()] || "segunda"; }
-function loadState() {
-  try { 
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-    if (!saved.treinos || saved.treinos.length === 0) saved.treinos = JSON.parse(JSON.stringify(defaultTreinos));
-    if (!saved.templates) saved.templates = {};
-    return saved;
-  } catch { return { treinos: JSON.parse(JSON.stringify(defaultTreinos)), templates: {} }; }
+function generateId(prefix) {
+  return (prefix || "id") + "_" + Date.now().toString(36) + Math.random().toString(36).substr(2, 6);
 }
-function saveState() { state._tab = currentTab; localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function getLocalDateStr(d) {
+  const dt = d || new Date();
+  return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")}`;
+}
+function safeGet(k){ try { return localStorage.getItem(k); } catch { return null; } }
+function safeSet(k,v){ try { localStorage.setItem(k,v); return true; } catch { showToast("Falha ao salvar!","error"); return false; } }
+
+// Gera ID estável para exercício trocado (item 1)
+function swapIdFor(name) {
+  return "sub_" + String(name).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
+}
+function isBodyweightExercise(name) {
+  const n = String(name || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  return /(flexao|barra fixa|prancha|mergulho|abdominal|mobilidade|alongamento|esteira|bicicleta|eliptico|roda abdominal)/.test(n);
+}
+
+function migrateData(raw) {
+  const data = raw || {};
+  if (!Array.isArray(data.treinos) || data.treinos.length === 0) data.treinos = JSON.parse(JSON.stringify(defaultTreinos));
+  if (!data.current) data.current = {};
+  if (!Array.isArray(data.history)) data.history = [];
+  if (!data.templates) data.templates = {};
+  if (!data.sessionStarted) data.sessionStarted = {};
+
+  const usedIds = new Set();
+  data.treinos.forEach(t => {
+    t.exercicios.forEach(e => {
+      if (!e.id) e.id = generateId("ex");
+      if (usedIds.has(e.id)) e.id = generateId("ex");
+      usedIds.add(e.id);
+      if (e.musculos && !e.main) { e.main = e.musculos; e.sec = ""; delete e.musculos; }
+    });
+  });
+
+  data.history.forEach(h => {
+    if (!h.timestamp) h.timestamp = new Date(h.date || Date.now()).getTime();
+    if (!h.dateLocal) h.dateLocal = h.date || getLocalDateStr();
+    if (!h.dayId && h.dayName) {
+      const tr = data.treinos.find(t => t.dia === h.dayName || t.nome === h.workoutName);
+      if (tr) h.dayId = tr.id;
+    }
+    h.exercises.forEach(ex => {
+      if (ex.weightless === undefined) ex.weightless = isBodyweightExercise(ex.name);
+      if (!ex.targetReps) {
+        const tr = h.dayId ? data.treinos.find(t => t.id === h.dayId) : null;
+        const trEx = tr && tr.exercicios.find(x => x.nome === ex.name || x.id === ex.id);
+        if (trEx) ex.targetReps = trEx.reps;
+      }
+      if (!ex.id || ex.id.startsWith("h_")) {
+        let match = null;
+        if (h.dayId) {
+          const tr = data.treinos.find(t => t.id === h.dayId);
+          const e = tr && tr.exercicios.find(x => x.nome === ex.name);
+          if (e) match = e.id;
+        }
+        if (!match) for (const tr of data.treinos) {
+          const e = tr.exercicios.find(x => x.nome === ex.name);
+          if (e) { match = e.id; break; }
+        }
+        if (!match) match = "hist_" + String(ex.name || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"").substr(0,20);
+        ex.id = match;
+      }
+    });
+  });
+
+  data.version = DATA_VERSION;
+  return data;
+}
+
+function loadState() {
+  let raw = safeGet(STORAGE_KEY);
+  if (!raw) {
+    for (const legacy of LEGACY_KEYS) {
+      const old = safeGet(legacy);
+      if (old) {
+        try {
+          const migrated = migrateData(JSON.parse(old));
+          safeSet(STORAGE_KEY, JSON.stringify(migrated));
+          return migrated;
+        } catch {}
+      }
+    }
+    return migrateData({});
+  }
+  try { return migrateData(JSON.parse(raw)); }
+  catch { return migrateData({}); }
+}
+
+function cleanupLegacyKeys() {
+  // Item 10: apaga chaves antigas após 3 dias da primeira abertura v11
+  const firstLoad = safeGet(LEGACY_INSTALL_KEY);
+  if (!firstLoad) {
+    safeSet(LEGACY_INSTALL_KEY, String(Date.now()));
+  } else {
+    const days = (Date.now() - parseInt(firstLoad)) / 86400000;
+    if (days > 3) {
+      LEGACY_KEYS.forEach(k => { try { localStorage.removeItem(k); } catch {} });
+    }
+  }
+}
+
+function getTodayTab() {
+  const map = { 1: "segunda", 2: "terca", 3: "quarta", 4: "quinta", 5: "sexta" };
+  const pref = map[new Date().getDay()];
+  if (pref && state.treinos.find(t => t.id === pref)) return pref;
+  return state.treinos[0]?.id || "segunda";
+}
+function saveState() { state._tab = currentTab; safeSet(STORAGE_KEY, JSON.stringify(state)); }
 
 function ensureData() {
   if (!state.current) state.current = {};
-  if (!state.history) state.history = [];
   if (!state.templates) state.templates = {};
-  
-  // Guarda o Treino Original como um Modelo se ainda não existir
+  if (!state.sessionStarted) state.sessionStarted = {};
   if (!state.templates["🌟 Protocolo Original (Upper/Lower)"]) {
-    state.templates["🌟 Protocolo Original (Upper/Lower)"] = [
-      ...defaultTreinos[0].exercicios,
-      ...defaultTreinos[1].exercicios
-    ];
+    state.templates["🌟 Protocolo Original (Upper/Lower)"] =
+      JSON.parse(JSON.stringify([...defaultTreinos[0].exercicios, ...defaultTreinos[1].exercicios]));
   }
-
   state.treinos.forEach(t => {
     if (!state.current[t.id]) state.current[t.id] = {};
     const c = state.current[t.id];
     if (!Array.isArray(c.checks)) c.checks = [];
     if (!Array.isArray(c.weights)) c.weights = [];
     if (!Array.isArray(c.reps)) c.reps = [];
+    if (!Array.isArray(c.warmups)) c.warmups = [];
     if (!c.customNames) c.customNames = {};
     if (!c.notes) c.notes = {};
-
     t.exercicios.forEach((e, i) => {
-      if (!e.id) e.id = "ex_" + Date.now() + Math.random().toString(36).substr(2, 5);
-      if (e.musculos && !e.main) { e.main = e.musculos; e.sec = ""; delete e.musculos; }
-      
+      if (!e.id) e.id = generateId("ex");
       if (!Array.isArray(c.checks[i])) c.checks[i] = Array(e.series).fill(false);
       if (!Array.isArray(c.weights[i])) c.weights[i] = Array(e.series).fill("");
       if (!Array.isArray(c.reps[i])) c.reps[i] = Array(e.series).fill("");
-      
+      if (!Array.isArray(c.warmups[i])) c.warmups[i] = Array(e.series).fill(false);
       c.checks[i] = c.checks[i].slice(0, e.series);
       c.weights[i] = c.weights[i].slice(0, e.series);
       c.reps[i] = c.reps[i].slice(0, e.series);
+      c.warmups[i] = c.warmups[i].slice(0, e.series);
       while (c.checks[i].length < e.series) c.checks[i].push(false);
       while (c.weights[i].length < e.series) c.weights[i].push("");
       while (c.reps[i].length < e.series) c.reps[i].push("");
+      while (c.warmups[i].length < e.series) c.warmups[i].push(false);
     });
   });
+}
+
+/* ============ HELPERS ============ */
+function esc(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
+function showToast(msg, type) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = "toast show " + (type || "success");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 2500);
+}
+function parseWeight(v) {
+  if (v === null || v === undefined || v === "") return 0;
+  const s = String(v).replace(",",".").trim();
+  const n = parseFloat(s);
+  return isNaN(n) || n < 0 ? 0 : n;
+}
+function parseReps(v) {
+  if (!v) return 0;
+  const s = String(v).trim().toLowerCase();
+  if (/^\d+$/.test(s)) return parseInt(s,10);
+  const ms = s.match(/^(\d+)\s*(s|seg)\b/);
+  if (ms) return parseInt(ms[1],10);
+  const mm = s.match(/^(\d+)\s*(min|minuto)/);
+  if (mm) return parseInt(mm[1],10) * 60;
+  return 0;
+}
+function isTimeBased(v) { return /\d\s*(s|seg|min|minuto)\b/i.test(String(v || "")); }
+function fmtDate(iso) { if (!iso) return ""; const [y,m,d] = String(iso).split("-"); return `${d}/${m}/${y}`; }
+
+// Item 1: busca por id OU nome. Aceita id=null para só buscar por nome.
+function getLastSessionForExercise(exId, exName) {
+  for (let i = state.history.length - 1; i >= 0; i--) {
+    const h = state.history[i];
+    if (h.isRest) continue;
+    const ex = h.exercises.find(e =>
+      (exId && e.id === exId) || (exName && e.name === exName)
+    );
+    if (ex) return { date: h.dateLocal, sets: ex.sets, name: ex.name, id: ex.id };
+  }
+  return null;
+}
+function getPRForExercise(exId, exName, excludeEntryId) {
+  let maxWeight = 0, maxReps = 0, maxVolume = 0;
+  state.history.forEach(h => {
+    if (h.isRest) return;
+    if (excludeEntryId && h.id === excludeEntryId) return;
+    h.exercises.forEach(ex => {
+      if (!((exId && ex.id === exId) || (exName && ex.name === exName))) return;
+      if (ex.weightless || isTimeBased(ex.targetReps)) return;
+      ex.sets.forEach(s => {
+        if (!s.done || s.isWarmup) return;
+        if (isTimeBased(s.reps)) return;
+        const w = parseWeight(s.weight), r = parseReps(s.reps);
+        if (w > maxWeight) maxWeight = w;
+        if (r > maxReps) maxReps = r;
+        if (w * r > maxVolume) maxVolume = w * r;
+      });
+    });
+  });
+  return { maxWeight, maxReps, maxVolume };
+}
+// Item 9: volume = 0 para tempo ou bodyweight
+function calcSessionVolume(entry) {
+  if (!entry || entry.isRest) return 0;
+  return entry.exercises.reduce((sum, ex) => {
+    if (ex.weightless || isTimeBased(ex.targetReps)) return sum;
+    if (isBodyweightExercise(ex.name)) return sum;
+    return sum + ex.sets.filter(s => {
+      if (!s.done || s.isWarmup) return false;
+      if (isTimeBased(s.reps)) return false;
+      return true;
+    }).reduce((v, s) => v + parseWeight(s.weight) * parseReps(s.reps), 0);
+  }, 0);
+}
+
+/* ============ ÁUDIO (item 11) ============ */
+function ensureAudio() {
+  if (!audioCtx) {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (Ctx) audioCtx = new Ctx();
+    } catch {}
+  }
+  if (audioCtx && audioCtx.state !== "running") {
+    audioCtx.resume().catch(() => {});
+  }
+  return audioCtx;
+}
+function beep(delay) {
+  setTimeout(() => {
+    const ctx = ensureAudio();
+    if (!ctx || ctx.state !== "running") return;
+    try {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = "sine"; o.frequency.value = 880;
+      g.gain.setValueAtTime(0.0001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+      o.start(); o.stop(ctx.currentTime + 0.4);
+    } catch {}
+  }, delay);
+}
+
+/* ============ WAKE LOCK ============ */
+async function requestWakeLock() {
+  if (!("wakeLock" in navigator) || wakeLock) return;
+  try {
+    wakeLock = await navigator.wakeLock.request("screen");
+    wakeLock.addEventListener("release", () => { wakeLock = null; });
+  } catch {}
+}
+function releaseWakeLock() {
+  if (wakeLock) { try { wakeLock.release(); } catch {} wakeLock = null; }
+}
+
+/* ============ ÍCONES (item 2) ============ */
+function roundRectPath(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+function generateIconPNG(size, paddingPct) {
+  const canvas = document.createElement("canvas");
+  canvas.width = size; canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#0b0d12"; ctx.fillRect(0, 0, size, size);
+  const p = (paddingPct || 0) * size;
+  const s = size - p * 2;
+  const cx = size / 2, cy = size / 2;
+  const barW = 240/512*s, barH = 20/512*s, weightW = 60/512*s, weightH = 100/512*s, r = 14/512*s;
+  ctx.fillStyle = "#22c55e";
+  ctx.fillRect(cx - barW/2, cy - barH/2, barW, barH);
+  roundRectPath(ctx, cx - barW/2 - weightW, cy - weightH/2, weightW, weightH, r); ctx.fill();
+  roundRectPath(ctx, cx + barW/2, cy - weightH/2, weightW, weightH, r); ctx.fill();
+  return canvas.toDataURL("image/png");
+}
+function setupIcons() {
+  try {
+    const icon192 = generateIconPNG(192, 0);
+    const icon512 = generateIconPNG(512, 0);
+    const icon512m = generateIconPNG(512, 0.2);
+    const icon180 = generateIconPNG(180, 0);
+    let atc = document.querySelector('link[rel="apple-touch-icon"]');
+    if (!atc) { atc = document.createElement("link"); atc.rel = "apple-touch-icon"; document.head.appendChild(atc); }
+    atc.href = icon180;
+    const manifest = {
+      name: "Meu Treino Pro", short_name: "Treino",
+      description: "App de treino com progressão de carga",
+      id: "./", start_url: "./index.html", scope: "./",
+      display: "standalone", orientation: "any",
+      background_color: "#0b0d12", theme_color: "#0b0d12", lang: "pt-BR",
+      categories: ["health","fitness","sports"],
+      icons: [
+        { src: icon192, sizes: "192x192", type: "image/png", purpose: "any" },
+        { src: icon512, sizes: "512x512", type: "image/png", purpose: "any" },
+        { src: icon512m, sizes: "512x512", type: "image/png", purpose: "maskable" }
+      ]
+    };
+    const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.querySelector('link[rel="manifest"]');
+    if (link) link.href = url;
+  } catch {}
+}
+
+/* ============ MODAIS ============ */
+function openModal() { document.getElementById("modalOverlay").classList.add("open"); }
+function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
+document.getElementById("modalClose").onclick = closeModal;
+document.getElementById("modalOverlay").onclick = (e) => { if (e.target.id === "modalOverlay") closeModal(); };
+
+function confirmModal(title, message, confirmLabel, danger) {
+  return new Promise(resolve => {
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalBody").innerHTML = `<p style="font-size:14px; line-height:1.5; color:var(--text); margin:0;">${message}</p>`;
+    const f = document.getElementById("modalFooter");
+    f.innerHTML = `<button class="btn-secondary" id="mCancel">Cancelar</button>
+      <button class="${danger ? 'btn-danger' : 'btn-primary'}" id="mConfirm">${esc(confirmLabel || "Confirmar")}</button>`;
+    f.querySelector("#mCancel").onclick = () => { closeModal(); resolve(false); };
+    f.querySelector("#mConfirm").onclick = () => { closeModal(); resolve(true); };
+    openModal();
+  });
+}
+function promptModal(title, defaultValue, onSave) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = `<div class="form-group"><input type="text" id="promptValue" class="form-input" value="${esc(defaultValue || "")}"></div>`;
+  const f = document.getElementById("modalFooter");
+  f.innerHTML = `<button class="btn-secondary" id="mCancel">Cancelar</button><button class="btn-primary" id="mSave">Salvar</button>`;
+  f.querySelector("#mCancel").onclick = closeModal;
+  f.querySelector("#mSave").onclick = () => {
+    const v = document.getElementById("promptValue").value.trim();
+    if (!v) return; closeModal(); onSave(v);
+  };
+  openModal();
 }
 
 /* ============ RENDER ============ */
 function render() {
   ensureData();
+  renderUpdateBanner();
+  renderBackupReminder();
   renderTabs();
   if (currentTab === "historico") renderHistory();
   else renderWorkout();
+  updateTimerDisplay();
+}
+
+function renderUpdateBanner() {
+  const el = document.getElementById("updateBanner");
+  if (!swUpdateAvailable) { el.innerHTML = ""; return; }
+  el.innerHTML = `<div class="banner banner-info"><span>Nova versão disponível!</span>
+    <button class="banner-action" id="doUpdate">Atualizar</button></div>`;
+  el.querySelector("#doUpdate").onclick = () => location.reload();
+}
+
+function renderBackupReminder() {
+  const el = document.getElementById("backupReminder");
+  if (!state.history || state.history.length === 0) { el.innerHTML = ""; return; }
+  if (state._hideBackupReminder) {
+    const d = (Date.now() - state._hideBackupReminder) / 86400000;
+    if (d < 3) { el.innerHTML = ""; return; }
+    state._hideBackupReminder = null;
+    saveState();
+  }
+  let show = false, msg = "";
+  if (state.lastBackup) {
+    const days = (Date.now() - new Date(state.lastBackup).getTime()) / 86400000;
+    if (days > 7) { show = true; msg = `Faz ${Math.floor(days)} dias desde o último backup.`; }
+  } else if (state.history.length >= 3) {
+    show = true; msg = `Você tem ${state.history.length} treinos e ainda não fez backup.`;
+  }
+  if (show) {
+    el.innerHTML = `<div class="banner banner-warn"><span>💾 ${msg}</span><button id="closeReminder">×</button></div>`;
+    el.querySelector("#closeReminder").onclick = () => {
+      state._hideBackupReminder = Date.now(); saveState(); el.innerHTML = "";
+    };
+  } else el.innerHTML = "";
 }
 
 function renderTabs() {
@@ -403,7 +802,7 @@ function renderTabs() {
     b.textContent = t.dia.slice(0, 3);
     b.onclick = () => {
       currentTab = t.id; saveState();
-      setPreset(state.treinos.find(x => x.id === t.id).descanso || 90);
+      if (!timerState.running) setPresetTimer(state.treinos.find(x => x.id === t.id).descanso || 90, true);
       render(); window.scrollTo({ top: 0, behavior: "smooth" });
     };
     tabsEl.appendChild(b);
@@ -419,23 +818,22 @@ function renderWorkout() {
   const main = document.getElementById("main");
   main.innerHTML = "";
   const t = state.treinos.find(x => x.id === currentTab);
-  if (!t) return;
+  if (!t) { currentTab = getTodayTab(); saveState(); render(); return; }
 
   const header = document.createElement("div");
   header.className = "day-header";
   header.innerHTML = `
     <div>
-      <h2>${t.nome} <button class="btn-icon" id="btnEditDayName">✏️</button></h2>
-      <p class="day-subtitle">${t.dia} · ${t.tipo}</p>
+      <h2><span>${esc(t.nome)}</span> <button class="btn-icon" id="btnEditDayName">✏️</button></h2>
+      <p class="day-subtitle">${esc(t.dia)} · ${esc(t.tipo)}</p>
     </div>
     <div class="day-actions">
-      <button class="btn-mini" id="btnDupDay" title="Duplicar Dia">📋</button>
-      <button class="btn-mini" id="btnSaveTemplate" title="Salvar Modelo">💾</button>
-      <button class="btn-mini" id="btnLoadTemplate" title="Carregar Modelo">📁</button>
+      <button class="btn-mini" id="btnDupDay">📋</button>
+      <button class="btn-mini" id="btnSaveTemplate">💾</button>
+      <button class="btn-mini" id="btnLoadTemplate">📁</button>
       <button class="btn-mini" style="color:var(--danger); border-color:var(--danger);" id="deleteDay">🗑</button>
     </div>`;
   main.appendChild(header);
-  
   header.querySelector("#btnEditDayName").onclick = () => editDayName(t);
   header.querySelector("#deleteDay").onclick = () => deleteDay(t.id);
   header.querySelector("#btnSaveTemplate").onclick = () => openSaveTemplateModal(t);
@@ -450,13 +848,21 @@ function renderWorkout() {
 
   const prog = document.createElement("div");
   prog.className = "progress-wrap";
-  prog.innerHTML = `
-    <div class="progress-info">
+  prog.innerHTML = `<div class="progress-info">
       <span>${pct === 100 ? "🎉 Treino concluído!" : "Progresso do dia"}</span>
       <span><strong>${doneSets}</strong> / ${totalSets} séries</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>`;
   main.appendChild(prog);
+
+  const lastWorkout = [...state.history].reverse().find(h => h.dayId === t.id && !h.isRest);
+  if (lastWorkout) {
+    const repeatBtn = document.createElement("button");
+    repeatBtn.className = "btn-repeat";
+    repeatBtn.textContent = "🔁 Repetir treino anterior (" + fmtDate(lastWorkout.dateLocal) + ")";
+    repeatBtn.onclick = () => repeatLastWorkout(t, lastWorkout);
+    main.appendChild(repeatBtn);
+  }
 
   t.exercicios.forEach((ex, ei) => {
     const card = document.createElement("div");
@@ -464,34 +870,39 @@ function renderWorkout() {
     card.className = "exercise" + (allDone ? " completed" : "");
 
     const displayName = cur.customNames[ex.id] || ex.nome;
-    const last = getLastSessionForExercise(displayName);
+    // Fix item 1: se foi trocado, NÃO casa por id (só por nome)
+    const wasSwapped = !!cur.customNames[ex.id];
+    const lookupId = wasSwapped ? null : ex.id;
+    const last = getLastSessionForExercise(lookupId, displayName);
+    const pr = getPRForExercise(lookupId, displayName);
+    const isTime = isTimeBased(ex.reps);
+    const repsInputMode = isTime ? "text" : "numeric";
+
     let lastHtml = "";
     if (last && last.sets.filter(s => s.done).length) {
-      const txt = last.sets.filter(s => s.done).map(s => `${s.weight}×${s.reps}`).join(" · ");
+      const txt = last.sets.filter(s => s.done).map(s => `${esc(s.weight)}×${esc(s.reps)}`).join(" · ");
       lastHtml = `<div class="last-session has">Última (${fmtDate(last.date)}): ${txt}</div>`;
     } else {
       lastHtml = `<div class="last-session">Sem registro anterior</div>`;
     }
 
+    const prHtml = pr.maxWeight > 0 ? `<span class="pr-badge">🏆 ${pr.maxWeight}kg</span>` : "";
+
     card.innerHTML = `
       <div class="exercise-head">
         <div class="exercise-title-wrap">
           <div class="exercise-name">
-            ${displayName}
-            <div style="display:flex; gap:2px; margin-left:4px;">
-              <button class="btn-move move-up" data-ei="${ei}" title="Mover para cima">⬆️</button>
-              <button class="btn-move move-down" data-ei="${ei}" title="Mover para baixo">⬇️</button>
-            </div>
-            <button class="btn-icon btn-swap" data-ei="${ei}" title="Trocar exercício hoje">🔄</button>
-            <button class="btn-icon btn-edit-ex" data-ei="${ei}" title="Editar permanentemente">✏️</button>
+            <span>${esc(displayName)}</span>${prHtml}
+            <button class="btn-move move-up" data-ei="${ei}" title="Mover para cima">⬆️</button>
+            <button class="btn-move move-down" data-ei="${ei}" title="Mover para baixo">⬇️</button>
+            <button class="btn-icon btn-swap" data-ei="${ei}" title="Trocar hoje">🔄</button>
+            <button class="btn-icon btn-edit-ex" data-ei="${ei}" title="Editar">✏️</button>
           </div>
-          <div class="exercise-muscles">${ex.main || ""} ${ex.sec ? " | " + ex.sec : ""}</div>
+          <div class="exercise-muscles">${esc(ex.main || "")} ${ex.sec ? " | " + esc(ex.sec) : ""}</div>
         </div>
-        <div class="exercise-meta">${ex.series}× · ${ex.reps}</div>
+        <div class="exercise-meta">${ex.series}× · ${esc(ex.reps)}</div>
       </div>
-      
-      <textarea class="exercise-notes" data-ei="${ei}" placeholder="Notas do exercício (opcional)...">${cur.notes[ex.id] || ""}</textarea>
-
+      <textarea class="exercise-notes" data-ei="${ei}" placeholder="Notas do exercício...">${esc(cur.notes[ex.id] || "")}</textarea>
       <div class="exercise-sub">
         ${lastHtml}
         <button class="btn-bump" data-ei="${ei}">+2,5 kg</button>
@@ -503,35 +914,54 @@ function renderWorkout() {
       const row = document.createElement("div");
       row.className = "set-row";
       const done = cur.checks[ei][si];
+      const isWarm = cur.warmups[ei][si];
+      const wPh = last && last.sets[si] && last.sets[si].weight ? last.sets[si].weight : "";
+      const rPh = last && last.sets[si] && last.sets[si].reps ? last.sets[si].reps : "";
       row.innerHTML = `
-        <button class="set-check${done ? " done" : ""}">${done ? "✓" : si + 1}</button>
-        <input class="set-input inp-weight" type="number" inputmode="decimal" step="0.5" placeholder="kg" value="${cur.weights[ei][si] || ""}">
+        <span class="set-label${isWarm ? " warmup" : ""}">${isWarm ? "W" : (si+1)}</span>
+        <button class="set-check${done ? " done" : ""}${isWarm ? " warmup" : ""}">${done ? "✓" : ""}</button>
+        <input class="set-input inp-weight" type="text" inputmode="decimal" placeholder="${esc(wPh)}" value="${esc(cur.weights[ei][si] || "")}">
         <span class="set-unit">kg</span>
         <span class="set-x">×</span>
-        <input class="set-input inp-reps" type="number" inputmode="numeric" placeholder="reps" value="${cur.reps[ei][si] || ""}">
-        <span class="set-unit">reps</span>`;
-      
+        <input class="set-input inp-reps reps" type="text" inputmode="${repsInputMode}" placeholder="${esc(rPh)}" value="${esc(cur.reps[ei][si] || "")}">
+        <button class="set-mode set-mode-btn" data-si="${si}">${isWarm ? "🔥" : "W"}</button>
+      `;
       const chk = row.querySelector(".set-check");
       const wIn = row.querySelector(".inp-weight");
       const rIn = row.querySelector(".inp-reps");
-      
-      chk.onclick = () => toggleCheck(t, ei, si);
-      wIn.onchange = () => { cur.weights[ei][si] = wIn.value; saveState(); };
-      rIn.onchange = () => { cur.reps[ei][si] = rIn.value; saveState(); };
+      const modeBtn = row.querySelector(".set-mode-btn");
+
+      chk.onclick = () => {
+        if (!cur.checks[ei][si]) {
+          if (!cur.weights[ei][si] && wIn.placeholder) cur.weights[ei][si] = wIn.placeholder;
+          if (!cur.reps[ei][si] && rIn.placeholder) cur.reps[ei][si] = rIn.placeholder;
+        }
+        toggleCheck(t, ei, si);
+      };
+      modeBtn.onclick = () => { cur.warmups[ei][si] = !cur.warmups[ei][si]; saveState(); render(); };
+
+      let debW, debR;
+      wIn.oninput = () => { clearTimeout(debW); debW = setTimeout(() => { cur.weights[ei][si] = wIn.value; saveState(); }, 500); };
+      rIn.oninput = () => { clearTimeout(debR); debR = setTimeout(() => { cur.reps[ei][si] = rIn.value; saveState(); }, 500); };
+      wIn.onblur = () => { clearTimeout(debW); cur.weights[ei][si] = wIn.value; saveState(); };
+      rIn.onblur = () => { clearTimeout(debR); cur.reps[ei][si] = rIn.value; saveState(); };
+
       setsCont.appendChild(row);
     }
 
     card.querySelector(".move-up").onclick = () => moveExercise(t, ei, -1);
     card.querySelector(".move-down").onclick = () => moveExercise(t, ei, 1);
-    card.querySelector(".btn-bump").onclick = () => {
-      cur.weights[ei] = cur.weights[ei].map(w => { const n = parseFloat(w); return isNaN(n) ? "" : String(n + 2.5); });
-      saveState(); render(); showToast("+2,5 kg aplicado");
-    };
+    card.querySelector(".btn-bump").onclick = () => bumpWeight(t, ei, 2.5);
     card.querySelector(".btn-swap").onclick = () => openSwapModal(t, ei, ex);
     card.querySelector(".btn-edit-ex").onclick = () => openExerciseModal(t, ei);
-    
+
     const noteInput = card.querySelector(".exercise-notes");
-    noteInput.onblur = () => { cur.notes[ex.id] = noteInput.value; saveState(); };
+    let noteTimer;
+    noteInput.oninput = () => {
+      clearTimeout(noteTimer);
+      noteTimer = setTimeout(() => { cur.notes[ex.id] = noteInput.value; saveState(); }, 500);
+    };
+    noteInput.onblur = () => { clearTimeout(noteTimer); cur.notes[ex.id] = noteInput.value; saveState(); };
 
     main.appendChild(card);
   });
@@ -545,76 +975,267 @@ function renderWorkout() {
   const finish = document.createElement("button");
   finish.className = "btn-finish";
   finish.textContent = "✅ Finalizar e arquivar treino";
-  finish.onclick = () => finalizarTreino(t);
+  finish.onclick = () => finalizarTreino(t, finish);
   main.appendChild(finish);
+
+  const restBtn = document.createElement("button");
+  restBtn.className = "btn-rest";
+  restBtn.textContent = "😴 Registrar dia de descanso";
+  restBtn.onclick = () => registrarDescanso(t);
+  main.appendChild(restBtn);
 }
 
+/* ============ AÇÕES ============ */
 function moveExercise(t, ei, dir) {
   const target = ei + dir;
   if (target < 0 || target >= t.exercicios.length) return;
-
   const c = state.current[t.id];
+  const sw = (arr) => { const tmp = arr[ei]; arr[ei] = arr[target]; arr[target] = tmp; };
+  sw(t.exercicios); sw(c.checks); sw(c.weights); sw(c.reps); sw(c.warmups);
+  saveState(); render();
+}
 
-  // Swap na definição do treino
-  const tempEx = t.exercicios[ei];
-  t.exercicios[ei] = t.exercicios[target];
-  t.exercicios[target] = tempEx;
+function bumpWeight(t, ei, delta) {
+  const cur = state.current[t.id];
+  const ex = t.exercicios[ei];
+  const wasSwapped = !!cur.customNames[ex.id];
+  const lookupId = wasSwapped ? null : ex.id;
+  const last = getLastSessionForExercise(lookupId, cur.customNames[ex.id] || ex.nome);
+  cur.weights[ei] = cur.weights[ei].map((w, i) => {
+    let base = parseWeight(w);
+    if (!base && last && last.sets[i]) base = parseWeight(last.sets[i].weight);
+    if (!base) return w;
+    return String(base + delta);
+  });
+  saveState(); render();
+  showToast("+" + delta + " kg", "success");
+}
 
-  // Swap nos dados atuais (checks, weights, reps)
-  const tempCheck = c.checks[ei]; c.checks[ei] = c.checks[target]; c.checks[target] = tempCheck;
-  const tempWeight = c.weights[ei]; c.weights[ei] = c.weights[target]; c.weights[target] = tempWeight;
-  const tempReps = c.reps[ei]; c.reps[ei] = c.reps[target]; c.reps[target] = tempReps;
-
+function toggleCheck(t, ei, si) {
+  const cur = state.current[t.id];
+  cur.checks[ei][si] = !cur.checks[ei][si];
+  // Fix item 6: persistir startedAt
+  if (!state.sessionStarted[t.id]) {
+    state.sessionStarted[t.id] = Date.now();
+    saveState();
+  }
+  if (!cur.startedAt) { cur.startedAt = state.sessionStarted[t.id]; }
   saveState();
+  if (navigator.vibrate) navigator.vibrate(10);
+  ensureAudio();
+  if (cur.checks[ei][si]) {
+    requestWakeLock();
+    setPresetTimer(t.descanso || 90, true);
+    startTimer();
+  }
   render();
 }
 
-/* ============ MODAIS ============ */
-function openModal() { document.getElementById("modalOverlay").classList.add("open"); }
-function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
-document.getElementById("modalClose").onclick = closeModal;
-document.getElementById("modalOverlay").onclick = (e) => { if (e.target.id === "modalOverlay") closeModal(); };
+async function finalizarTreino(t, btn) {
+  if (archivedInFlight) return;
+  const cur = state.current[t.id];
+
+  // Item 8: não exigir carga em bodyweight/tempo
+  const marcadasVazias = [];
+  t.exercicios.forEach((ex, ei) => {
+    const isTime = isTimeBased(ex.reps);
+    const isBW = isBodyweightExercise(ex.nome);
+    cur.checks[ei].forEach((done, si) => {
+      if (!done) return;
+      const w = cur.weights[ei][si];
+      const r = cur.reps[ei][si];
+      if (isTime) { if (!r) marcadasVazias.push(ex.nome); }
+      else if (isBW) { if (!r) marcadasVazias.push(ex.nome); }
+      else { if (!w || !r) marcadasVazias.push(ex.nome); }
+    });
+  });
+  if (marcadasVazias.length > 0) {
+    const ok = await confirmModal("Séries sem dados",
+      `Existem ${marcadasVazias.length} série(s) sem carga/reps. Continuar?`,
+      "Continuar", false);
+    if (!ok) return;
+  }
+
+  const exercises = [];
+  t.exercicios.forEach((ex, ei) => {
+    const sets = [];
+    let hasDone = false;
+    for (let si = 0; si < ex.series; si++) {
+      const done = cur.checks[ei][si];
+      const w = parseWeight(cur.weights[ei][si]);
+      const r = cur.reps[ei][si] || "";
+      const isWarmup = cur.warmups[ei][si] || false;
+      sets.push({ weight: w, reps: r, done, isWarmup });
+      if (done) hasDone = true;
+    }
+    if (hasDone) {
+      const doneSets = sets.filter(s => s.done && !s.isWarmup);
+      const maxWeight = doneSets.length ? Math.max(...doneSets.map(s => parseWeight(s.weight))) : 0;
+      const wasSwapped = !!(cur.customNames[ex.id] && cur.customNames[ex.id] !== ex.nome);
+      const finalName = cur.customNames[ex.id] || ex.nome;
+      // Item 1: id "sub_" + nome normalizado quando trocado
+      const finalId = wasSwapped ? swapIdFor(finalName) : ex.id;
+      const isBW = isBodyweightExercise(finalName);
+      exercises.push({
+        id: finalId, name: finalName, sets, maxWeight,
+        note: cur.notes[ex.id] || "",
+        targetReps: ex.reps,
+        weightless: isBW
+      });
+    }
+  });
+
+  if (exercises.length === 0) { showToast("Marque ao menos uma série.", "warn"); return; }
+
+  const ok = await confirmModal("Arquivar treino",
+    `Arquivar este treino?<br><br>${exercises.length} exercício(s) com registro.`,
+    "Arquivar", false);
+  if (!ok) return;
+
+  btn.disabled = true;
+  btn.textContent = "Arquivando...";
+  archivedInFlight = true;
+
+  const now = new Date();
+  // Item 6: usar startedAt persistido
+  const startTime = state.sessionStarted[t.id] || cur.startedAt || now.getTime();
+  const entry = {
+    id: Date.now(),
+    timestamp: now.getTime(),
+    dateLocal: getLocalDateStr(now),
+    startTime, endTime: now.getTime(),
+    dayId: t.id, dayName: t.dia, workoutName: t.nome,
+    exercises, isRest: false
+  };
+  state.history.push(entry);
+
+  cur.checks = t.exercicios.map(e => Array(e.series).fill(false));
+  cur.warmups = t.exercicios.map(e => Array(e.series).fill(false));
+  cur.customNames = {};
+  delete cur.startedAt;
+  delete state.sessionStarted[t.id];
+
+  saveState();
+  releaseWakeLock();
+  archivedInFlight = false;
+  btn.disabled = false;
+  btn.textContent = "✅ Finalizar e arquivar treino";
+
+  showSummary(entry);
+}
+
+function showSummary(entry) {
+  const durMin = Math.round((entry.endTime - entry.startTime) / 60000);
+  const totalSets = entry.exercises.reduce((s, ex) => s + ex.sets.filter(x => x.done && !x.isWarmup).length, 0);
+  const totalVol = calcSessionVolume(entry);
+
+  // Item 7: exigir prior > 0
+  const prs = [];
+  entry.exercises.forEach(ex => {
+    if (ex.weightless || isTimeBased(ex.targetReps)) return;
+    ex.sets.forEach(s => {
+      if (!s.done || s.isWarmup) return;
+      if (isTimeBased(s.reps)) return;
+      const w = parseWeight(s.weight);
+      if (w <= 0) return;
+      const prior = getPRForExercise(ex.id, ex.name, entry.id).maxWeight;
+      if (prior > 0 && w > prior && !prs.find(p => p.name === ex.name)) {
+        prs.push({ name: ex.name, weight: w });
+      }
+    });
+  });
+
+  const prev = [...state.history].reverse().find(h => h.dayId === entry.dayId && h.id !== entry.id && !h.isRest);
+  let cmpHtml = "";
+  if (prev) {
+    const prevVol = calcSessionVolume(prev);
+    const diff = totalVol - prevVol;
+    const pct = prevVol ? Math.round(diff / prevVol * 100) : 0;
+    cmpHtml = `<div class="summary-item"><span>vs. anterior</span><strong>${diff >= 0 ? "+" : ""}${Math.round(diff)} kg (${pct >= 0 ? "+" : ""}${pct}%)</strong></div>`;
+  }
+
+  document.getElementById("modalTitle").textContent = "🎉 Treino Concluído!";
+  document.getElementById("modalBody").innerHTML = `
+    <div class="summary-item"><span>Duração</span><strong>${durMin} min</strong></div>
+    <div class="summary-item"><span>Séries concluídas</span><strong>${totalSets}</strong></div>
+    <div class="summary-item"><span>Volume total</span><strong>${Math.round(totalVol)} kg</strong></div>
+    ${cmpHtml}
+    ${prs.length ? `<div style="margin-top:12px;"><div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:6px;">🏆 NOVOS RECORDES</div>${prs.map(p => `<div style="font-size:13px;color:var(--gold);">${esc(p.name)}: ${p.weight} kg</div>`).join("")}</div>` : ""}
+  `;
+  const footer = document.getElementById("modalFooter");
+  footer.innerHTML = `<button class="btn-primary" id="mOk">Fechar</button>`;
+  footer.querySelector("#mOk").onclick = () => { closeModal(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  render();
+  openModal();
+}
+
+async function registrarDescanso(t) {
+  const ok = await confirmModal("Registrar Descanso",
+    `Registrar <strong>${esc(t.dia)}</strong> como descanso?`, "Registrar", false);
+  if (!ok) return;
+  const now = new Date();
+  state.history.push({
+    id: Date.now(), timestamp: now.getTime(), dateLocal: getLocalDateStr(now),
+    startTime: now.getTime(), endTime: now.getTime(),
+    dayId: t.id, dayName: t.dia, workoutName: "Descanso",
+    exercises: [], isRest: true
+  });
+  saveState(); showToast("Descanso registrado 😴", "success"); render();
+}
+
+async function repeatLastWorkout(t, lastEntry) {
+  const ok = await confirmModal("Repetir treino",
+    `Copiar cargas/reps de <strong>${fmtDate(lastEntry.dateLocal)}</strong>?`,
+    "Copiar", false);
+  if (!ok) return;
+  const s = state.current[t.id];
+  lastEntry.exercises.forEach(ex => {
+    const idx = t.exercicios.findIndex(x => x.id === ex.id || x.nome === ex.name);
+    if (idx < 0) return;
+    ex.sets.forEach((set, si) => {
+      if (si >= t.exercicios[idx].series) return;
+      s.weights[idx][si] = String(set.weight || "");
+      s.reps[idx][si] = set.reps || "";
+    });
+  });
+  saveState(); render(); showToast("Valores copiados", "success");
+}
+
+/* ============ EDIÇÃO ============ */
+function editDayName(t) {
+  promptModal("Nome do treino", t.nome, (v) => { t.nome = v; saveState(); render(); showToast("Atualizado", "success"); });
+}
+async function deleteDay(id) {
+  if (state.treinos.length <= 1) { showToast("Precisa ter ao menos 1 dia", "warn"); return; }
+  const t = state.treinos.find(x => x.id === id);
+  const ok = await confirmModal("Excluir dia", `Excluir <strong>${esc(t.nome)}</strong>?<br><br>Histórico será preservado.`, "Excluir", true);
+  if (!ok) return;
+  state.treinos = state.treinos.filter(x => x.id !== id);
+  delete state.current[id];
+  currentTab = state.treinos[0].id;
+  saveState(); render(); showToast("Excluído", "success");
+}
 
 function openExerciseModal(t, ei) {
   const isEdit = ei >= 0;
   const ex = isEdit ? t.exercicios[ei] : { nome: "", main: "", sec: "", series: 3, reps: "8-12" };
 
   document.getElementById("modalTitle").textContent = isEdit ? "Editar Exercício" : "Novo Exercício";
-  
-  const body = document.getElementById("modalBody");
-  body.innerHTML = `
-    <div class="form-group">
-      <label>Região</label>
+  document.getElementById("modalBody").innerHTML = `
+    <div class="form-group"><label>Buscar</label><input type="text" id="inpSearch" class="form-input" placeholder="Filtrar..."></div>
+    <div class="form-group"><label>Região</label>
       <select id="inpExGroup" class="form-select">
-        <option value="">Selecione a Região...</option>
-        ${Object.keys(dbExercicios).map(g => `<option value="${g}">${g}</option>`).join("")}
+        <option value="">Selecione...</option>
+        ${Object.keys(dbExercicios).map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join("")}
       </select>
     </div>
-    <div class="form-group" id="groupExSelect">
-      <label>Exercício</label>
-      <select id="inpExSelect" class="form-select"></select>
-    </div>
-    <div class="form-group" id="groupExInput" style="display:none;">
-      <label>Nome do Exercício (Manual)</label>
-      <input type="text" id="inpExNomeManual" class="form-input" placeholder="Digite o nome">
-    </div>
-    <div class="form-group">
-      <label>Músculos Principais</label>
-      <input type="text" id="inpExMain" class="form-input" value="${ex.main || ""}" placeholder="Ex: Peitoral Maior">
-    </div>
-    <div class="form-group">
-      <label>Músculos Secundários</label>
-      <input type="text" id="inpExSec" class="form-input" value="${ex.sec || ""}" placeholder="Ex: Tríceps">
-    </div>
+    <div class="form-group" id="groupExSelect"><label>Exercício</label><select id="inpExSelect" class="form-select"></select></div>
+    <div class="form-group" id="groupExInput" style="display:none;"><label>Nome manual</label><input type="text" id="inpExNomeManual" class="form-input"></div>
+    <div class="form-group"><label>Músculos Principais</label><input type="text" id="inpExMain" class="form-input" value="${esc(ex.main || "")}"></div>
+    <div class="form-group"><label>Músculos Secundários</label><input type="text" id="inpExSec" class="form-input" value="${esc(ex.sec || "")}"></div>
     <div class="form-row">
-      <div class="form-group">
-        <label>Séries</label>
-        <input type="number" id="inpExSeries" class="form-input" value="${ex.series}" min="1">
-      </div>
-      <div class="form-group">
-        <label>Reps</label>
-        <input type="text" id="inpExReps" class="form-input" value="${ex.reps}">
-      </div>
+      <div class="form-group"><label>Séries</label><input type="number" id="inpExSeries" class="form-input" value="${ex.series}" min="1"></div>
+      <div class="form-group"><label>Reps</label><input type="text" id="inpExReps" class="form-input" value="${esc(ex.reps)}" placeholder="8-12, 30s..."></div>
     </div>
   `;
 
@@ -624,244 +1245,202 @@ function openExerciseModal(t, ei) {
   const exInput = document.getElementById("inpExNomeManual");
   const mainInput = document.getElementById("inpExMain");
   const secInput = document.getElementById("inpExSec");
+  const searchInput = document.getElementById("inpSearch");
 
-  let currentGroup = "";
-  let currentExName = ex.nome;
-  let isCustom = false;
-  
+  let currentGroup = "", isCustom = false;
   if (isEdit) {
     for (const [g, exs] of Object.entries(dbExercicios)) {
       if (exs[ex.nome]) { currentGroup = g; break; }
     }
-    if (!currentGroup) { isCustom = true; currentGroup = "Peito"; }
+    if (!currentGroup) { isCustom = true; currentGroup = Object.keys(dbExercicios)[0]; }
   }
 
-  function populateSelect(group) {
+  function populate(group, filter) {
     exSelect.innerHTML = "";
     if (!group || !dbExercicios[group]) return;
-    Object.keys(dbExercicios[group]).forEach(exName => {
-      const opt = document.createElement("option");
-      opt.value = exName;
-      opt.textContent = exName;
-      exSelect.appendChild(opt);
+    Object.keys(dbExercicios[group]).forEach(name => {
+      if (filter && !name.toLowerCase().includes(filter.toLowerCase())) return;
+      const o = document.createElement("option");
+      o.value = name; o.textContent = name;
+      exSelect.appendChild(o);
     });
-    const customOpt = document.createElement("option");
-    customOpt.value = "custom";
-    customOpt.textContent = "Outro (Digitar manualmente)...";
-    exSelect.appendChild(customOpt);
+    const c = document.createElement("option");
+    c.value = "custom"; c.textContent = "Outro (digitar)...";
+    exSelect.appendChild(c);
   }
 
   if (isEdit) {
     groupSelect.value = currentGroup;
-    populateSelect(currentGroup);
-    if (isCustom) {
-      exSelect.value = "custom";
-      exInputWrap.style.display = "block";
-      exInput.value = ex.nome;
-    } else {
-      exSelect.value = ex.nome;
-    }
+    populate(currentGroup);
+    if (isCustom) { exSelect.value = "custom"; exInputWrap.style.display = "block"; exInput.value = ex.nome; }
+    else exSelect.value = ex.nome;
   }
 
-  groupSelect.addEventListener("change", () => {
-    const g = groupSelect.value;
-    populateSelect(g);
+  groupSelect.onchange = () => {
+    populate(groupSelect.value, searchInput.value);
     exSelect.value = "custom";
     exInputWrap.style.display = "block";
-    exInput.value = "";
-    mainInput.value = "";
-    secInput.value = "";
-  });
-
-  exSelect.addEventListener("change", () => {
+  };
+  searchInput.oninput = () => { if (groupSelect.value) populate(groupSelect.value, searchInput.value); };
+  exSelect.onchange = () => {
     const val = exSelect.value;
-    const g = groupSelect.value;
-    
-    if (val === "custom") {
-      exInputWrap.style.display = "block";
-      exInput.value = "";
-      mainInput.value = "";
-      secInput.value = "";
-    } else {
+    if (val === "custom") { exInputWrap.style.display = "block"; exInput.value = ""; mainInput.value = ""; secInput.value = ""; }
+    else {
       exInputWrap.style.display = "none";
-      if (g && dbExercicios[g] && dbExercicios[g][val]) {
-        mainInput.value = dbExercicios[g][val][0];
-        secInput.value = dbExercicios[g][val][1];
-      }
+      const g = groupSelect.value;
+      if (g && dbExercicios[g][val]) { mainInput.value = dbExercicios[g][val][0]; secInput.value = dbExercicios[g][val][1]; }
     }
-  });
+  };
 
   const footer = document.getElementById("modalFooter");
   footer.innerHTML = `
-    ${isEdit ? '<button class="btn-danger" id="btnDelEx">Excluir</button>' : ''}
+    ${isEdit ? '<button class="btn-danger-outline" id="btnDelEx">Excluir</button>' : ''}
     <button class="btn-primary" id="btnSaveEx">Salvar</button>
   `;
 
   if (isEdit) {
-    footer.querySelector("#btnDelEx").onclick = () => {
-      if (!confirm("Excluir este exercício?")) return;
+    footer.querySelector("#btnDelEx").onclick = async () => {
+      const ok = await confirmModal("Excluir exercício", `Excluir <strong>${esc(ex.nome)}</strong>?`, "Excluir", true);
+      if (!ok) return;
       const exId = t.exercicios[ei].id;
       t.exercicios.splice(ei, 1);
       const c = state.current[t.id];
-      if(c.checks) c.checks.splice(ei, 1);
-      if(c.weights) c.weights.splice(ei, 1);
-      if(c.reps) c.reps.splice(ei, 1);
-      delete c.customNames[exId];
-      delete c.notes[exId];
-      saveState(); closeModal(); render(); showToast("Exercício excluído");
+      c.checks.splice(ei, 1); c.weights.splice(ei, 1); c.reps.splice(ei, 1); c.warmups.splice(ei, 1);
+      delete c.customNames[exId]; delete c.notes[exId];
+      saveState(); closeModal(); render(); showToast("Excluído", "success");
     };
   }
 
   footer.querySelector("#btnSaveEx").onclick = () => {
     const val = exSelect.value;
-    let nome = "";
-    
-    if (val === "custom" || exInputWrap.style.display === "block") {
-      nome = exInput.value.trim();
-    } else {
-      nome = val;
-    }
-
-    if (!nome) { alert("Digite ou selecione o nome do exercício."); return; }
-    
-    const main = mainInput.value.trim();
-    const sec = secInput.value.trim();
-    const series = parseInt(document.getElementById("inpExSeries").value) || 3;
+    let nome = (val === "custom" || exInputWrap.style.display === "block") ? exInput.value.trim() : val;
+    if (!nome) { showToast("Digite o nome", "warn"); return; }
+    const series = Math.max(1, parseInt(document.getElementById("inpExSeries").value) || 3);
     const reps = document.getElementById("inpExReps").value.trim() || "8-12";
 
     if (isEdit) {
-      t.exercicios[ei] = { ...t.exercicios[ei], nome, main, sec, series, reps };
+      t.exercicios[ei] = { ...t.exercicios[ei], nome, main: mainInput.value.trim(), sec: secInput.value.trim(), series, reps };
       const c = state.current[t.id];
       if (c.checks[ei].length !== series) {
         c.checks[ei] = Array(series).fill(false);
         c.weights[ei] = Array(series).fill("");
         c.reps[ei] = Array(series).fill("");
+        c.warmups[ei] = Array(series).fill(false);
       }
+      // Limpa customName se editou permanentemente
+      delete c.customNames[t.exercicios[ei].id];
     } else {
-      const newId = "ex_" + Date.now() + Math.random().toString(36).substr(2, 5);
-      t.exercicios.push({ id: newId, nome, main, sec, series, reps });
+      const newId = generateId("ex");
+      t.exercicios.push({ id: newId, nome, main: mainInput.value.trim(), sec: secInput.value.trim(), series, reps });
       const c = state.current[t.id];
       c.checks.push(Array(series).fill(false));
       c.weights.push(Array(series).fill(""));
       c.reps.push(Array(series).fill(""));
+      c.warmups.push(Array(series).fill(false));
     }
-    saveState(); closeModal(); render(); showToast("Exercício salvo!");
+    saveState(); closeModal(); render(); showToast("Salvo", "success");
   };
   openModal();
 }
 
 function openSwapModal(t, ei, ex) {
   const cur = state.current[t.id];
-  const currentName = cur.customNames[ex.id] || ex.nome;
-  
+  const displayName = cur.customNames[ex.id] || ex.nome;
   let currentGroup = "Cardio / Outros";
-  for (const [group, list] of Object.entries(dbExercicios)) {
-    if (list[ex.nome]) { currentGroup = group; break; }
+  for (const [g, list] of Object.entries(dbExercicios)) {
+    if (list[ex.nome]) { currentGroup = g; break; }
   }
-
-  document.getElementById("modalTitle").textContent = "Trocar para Hoje (🔄)";
-  const body = document.getElementById("modalBody");
-  body.innerHTML = `<p style="font-size:13px; color:var(--muted); margin-top:0;">Sugestões para <strong>${currentGroup}</strong>:</p><div class="option-list" id="swapList"></div>`;
-
+  document.getElementById("modalTitle").textContent = "Trocar para Hoje";
+  document.getElementById("modalBody").innerHTML = `<p style="font-size:13px; color:var(--muted); margin:0;">Sugestões para <strong>${esc(currentGroup)}</strong>:</p><div class="option-list" id="swapList"></div>`;
   const listEl = document.getElementById("swapList");
-  const subs = dbExercicios[currentGroup] || {};
-  
-  Object.keys(subs).forEach(subName => {
+  Object.keys(dbExercicios[currentGroup] || {}).forEach(subName => {
     const btn = document.createElement("button");
-    btn.className = "option-item" + (subName === currentName ? " current" : "");
+    btn.className = "option-item" + (subName === displayName ? " current" : "");
     btn.textContent = subName;
     btn.onclick = () => {
       if (subName === ex.nome) delete cur.customNames[ex.id];
       else cur.customNames[ex.id] = subName;
-      saveState(); closeModal(); render(); showToast("Trocado por hoje");
+      saveState(); closeModal(); render(); showToast("Trocado", "success");
     };
     listEl.appendChild(btn);
   });
-
   const footer = document.getElementById("modalFooter");
   footer.innerHTML = `<button class="btn-secondary" id="btnRestoreEx">Voltar ao Original</button>`;
   footer.querySelector("#btnRestoreEx").onclick = () => {
-    delete cur.customNames[ex.id]; saveState(); closeModal(); render(); showToast("Restaurado");
+    delete cur.customNames[ex.id]; saveState(); closeModal(); render(); showToast("Restaurado", "success");
   };
   openModal();
 }
 
 function openSaveTemplateModal(t) {
-  document.getElementById("modalTitle").textContent = "Salvar como Modelo";
-  document.getElementById("modalBody").innerHTML = `
-    <div class="form-group">
-      <label>Nome do Modelo</label>
-      <input type="text" id="inpTplName" class="form-input" placeholder="Ex: Treino A - Foco Peito">
-    </div>
-  `;
+  document.getElementById("modalTitle").textContent = "Salvar Modelo";
+  document.getElementById("modalBody").innerHTML = `<div class="form-group"><label>Nome</label><input type="text" id="inpTplName" class="form-input"></div>`;
   document.getElementById("modalFooter").innerHTML = `<button class="btn-primary" id="btnSaveTpl">Salvar</button>`;
-  
   document.getElementById("btnSaveTpl").onclick = () => {
     const name = document.getElementById("inpTplName").value.trim();
-    if (!name) return;
+    if (!name) { showToast("Digite um nome", "warn"); return; }
+    if (state.templates[name]) { showToast("Nome já existe", "warn"); return; }
     state.templates[name] = JSON.parse(JSON.stringify(t.exercicios));
-    saveState(); closeModal(); showToast("Modelo Salvo!");
+    saveState(); closeModal(); showToast("Modelo salvo", "success");
   };
   openModal();
 }
 
 function openLoadTemplateModal(t) {
-  document.getElementById("modalTitle").textContent = "Carregar Modelo";
+  document.getElementById("modalTitle").textContent = "Modelos";
   const tpls = Object.keys(state.templates);
-  
-  if (tpls.length === 0) {
-    document.getElementById("modalBody").innerHTML = `<p style="text-align:center; color:var(--muted);">Nenhum modelo salvo.</p>`;
-    document.getElementById("modalFooter").innerHTML = ``;
+  if (!tpls.length) {
+    document.getElementById("modalBody").innerHTML = `<p style="text-align:center;color:var(--muted);">Nenhum modelo salvo.</p>`;
+    document.getElementById("modalFooter").innerHTML = "";
     openModal(); return;
   }
-
-  const body = document.getElementById("modalBody");
-  body.innerHTML = `<div class="option-list" id="tplList"></div>`;
+  document.getElementById("modalBody").innerHTML = `<div class="option-list" id="tplList"></div>`;
   const listEl = document.getElementById("tplList");
-  
   tpls.forEach(tplName => {
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "display:flex;gap:6px;";
     const btn = document.createElement("button");
-    btn.className = "option-item";
+    btn.className = "option-item"; btn.style.flex = "1";
     btn.textContent = tplName;
-    btn.onclick = () => {
-      if (!confirm(`Substituir o treino de hoje pelo modelo "${tplName}"?\nOs checks e cargas de hoje serão limpos.`)) return;
+    btn.onclick = async () => {
+      const ok = await confirmModal("Carregar modelo", `Substituir por <strong>${esc(tplName)}</strong>?`, "Carregar", false);
+      if (!ok) return;
       t.exercicios = JSON.parse(JSON.stringify(state.templates[tplName]));
-      state.current[t.id] = { checks: [], weights: [], reps: [], customNames: {}, notes: {} };
-      saveState(); closeModal(); render(); showToast("Modelo Carregado!");
+      t.exercicios.forEach(e => { e.id = e.id || generateId("ex"); });
+      state.current[t.id] = { checks: [], weights: [], reps: [], warmups: [], customNames: {}, notes: {} };
+      saveState(); closeModal(); render(); showToast("Carregado", "success");
     };
-    listEl.appendChild(btn);
+    const del = document.createElement("button");
+    del.className = "btn-small-danger"; del.textContent = "🗑";
+    del.onclick = async () => {
+      const ok = await confirmModal("Excluir modelo", `Excluir <strong>${esc(tplName)}</strong>?`, "Excluir", true);
+      if (!ok) return;
+      delete state.templates[tplName];
+      saveState(); closeModal(); openLoadTemplateModal(t);
+    };
+    wrap.appendChild(btn); wrap.appendChild(del);
+    listEl.appendChild(wrap);
   });
-
   document.getElementById("modalFooter").innerHTML = "";
   openModal();
 }
 
-/* ============ LOGICA ============ */
 document.getElementById("btnAddDay").onclick = () => {
-  document.getElementById("modalTitle").textContent = "Novo Dia de Treino";
-  const body = document.getElementById("modalBody");
-  body.innerHTML = `
-    <div class="form-group">
-      <label>Dia da Semana (ex: Sábado)</label>
-      <input type="text" id="inpDayDia" class="form-input" placeholder="Ex: Sábado">
-    </div>
-    <div class="form-group">
-      <label>Nome do Treino (ex: Braços)</label>
-      <input type="text" id="inpDayNome" class="form-input" placeholder="Ex: Braços e Abdômen">
-    </div>
+  document.getElementById("modalTitle").textContent = "Novo Dia";
+  document.getElementById("modalBody").innerHTML = `
+    <div class="form-group"><label>Dia</label><input type="text" id="inpDayDia" class="form-input" placeholder="Ex: Sábado"></div>
+    <div class="form-group"><label>Nome</label><input type="text" id="inpDayNome" class="form-input" placeholder="Ex: Braços"></div>
   `;
-  const footer = document.getElementById("modalFooter");
-  footer.innerHTML = `<button class="btn-primary" id="btnSaveDay">Criar Dia</button>`;
-
-  footer.querySelector("#btnSaveDay").onclick = () => {
+  document.getElementById("modalFooter").innerHTML = `<button class="btn-primary" id="btnSaveDay">Criar</button>`;
+  document.getElementById("btnSaveDay").onclick = () => {
     const dia = document.getElementById("inpDayDia").value.trim();
     const nome = document.getElementById("inpDayNome").value.trim();
-    if (!dia || !nome) { alert("Preencha todos os campos."); return; }
-    const newId = "dia_" + Date.now();
-    state.treinos.push({ id: newId, dia: dia, nome: nome, tipo: "custom", descanso: 90, exercicios: [] });
-    state.current[newId] = { checks: [], weights: [], reps: [], customNames: {}, notes: {} };
+    if (!dia || !nome) { showToast("Preencha tudo", "warn"); return; }
+    const newId = generateId("dia");
+    state.treinos.push({ id: newId, dia, nome, tipo: "custom", descanso: 90, exercicios: [] });
+    state.current[newId] = { checks: [], weights: [], reps: [], warmups: [], customNames: {}, notes: {} };
     currentTab = newId;
-    saveState(); closeModal(); render(); showToast("Dia criado!");
+    saveState(); closeModal(); render(); showToast("Criado", "success");
   };
   openModal();
 };
@@ -869,249 +1448,513 @@ document.getElementById("btnAddDay").onclick = () => {
 function duplicateDay(t) {
   document.getElementById("modalTitle").textContent = "Duplicar Dia";
   document.getElementById("modalBody").innerHTML = `
-    <div class="form-group">
-      <label>Nome do Novo Dia</label>
-      <input type="text" id="inpDupNome" class="form-input" value="${t.nome} (Cópia)">
-    </div>
-    <div class="form-group">
-      <label>Dia da Semana</label>
-      <input type="text" id="inpDupDia" class="form-input" value="${t.dia}">
-    </div>
+    <div class="form-group"><label>Nome</label><input type="text" id="inpDupNome" class="form-input" value="${esc(t.nome + " (Cópia)")}"></div>
+    <div class="form-group"><label>Dia</label><input type="text" id="inpDupDia" class="form-input" value="${esc(t.dia)}"></div>
   `;
-  document.getElementById("modalFooter").innerHTML = `<button class="btn-primary" id="btnSaveDup">Criar Cópia</button>`;
-  
+  document.getElementById("modalFooter").innerHTML = `<button class="btn-primary" id="btnSaveDup">Criar</button>`;
   document.getElementById("btnSaveDup").onclick = () => {
     const newName = document.getElementById("inpDupNome").value.trim();
     const newDia = document.getElementById("inpDupDia").value.trim();
     if (!newName || !newDia) return;
-
-    const newId = "dia_" + Date.now();
-    const newTreino = JSON.parse(JSON.stringify(t));
-    newTreino.id = newId;
-    newTreino.dia = newDia;
-    newTreino.nome = newName;
-    newTreino.exercicios.forEach(e => { e.id = "ex_" + Date.now() + Math.random().toString(36).substr(2, 5); });
-    
-    state.treinos.push(newTreino);
+    const newId = generateId("dia");
+    const novo = JSON.parse(JSON.stringify(t));
+    novo.id = newId; novo.dia = newDia; novo.nome = newName;
+    novo.exercicios.forEach(e => { e.id = generateId("ex"); });
+    state.treinos.push(novo);
     state.current[newId] = {
-      checks: newTreino.exercicios.map(e => Array(e.series).fill(false)),
-      weights: newTreino.exercicios.map(e => Array(e.series).fill("")),
-      reps: newTreino.exercicios.map(e => Array(e.series).fill("")),
+      checks: novo.exercicios.map(e => Array(e.series).fill(false)),
+      weights: novo.exercicios.map(e => Array(e.series).fill("")),
+      reps: novo.exercicios.map(e => Array(e.series).fill("")),
+      warmups: novo.exercicios.map(e => Array(e.series).fill(false)),
       customNames: {}, notes: {}
     };
     currentTab = newId;
-    saveState(); closeModal(); render(); showToast("Dia duplicado!");
+    saveState(); closeModal(); render(); showToast("Duplicado", "success");
   };
   openModal();
 }
 
-function toggleCheck(t, ei, si) {
-  const cur = state.current[t.id];
-  const prev = cur.checks[ei][si];
-  cur.checks[ei][si] = !prev;
-  saveState();
-  if (navigator.vibrate) navigator.vibrate(10);
-  render();
-  if (!prev) { setPreset(t.descanso || 90); startTimer(); }
-}
-
-function finalizarTreino(t) {
-  const cur = state.current[t.id];
-  const exercises = [];
-  t.exercicios.forEach((ex, ei) => {
-    const sets = [];
-    let hasDone = false;
-    for (let si = 0; si < ex.series; si++) {
-      const done = cur.checks[ei][si];
-      const weight = parseFloat(cur.weights[ei][si]) || 0;
-      const reps = parseInt(cur.reps[ei][si]) || 0;
-      sets.push({ weight, reps, done });
-      if (done) hasDone = true;
-    }
-    if (hasDone) {
-      const doneSets = sets.filter(s => s.done);
-      const maxWeight = Math.max(...doneSets.map(s => s.weight));
-      const finalName = cur.customNames[ex.id] || ex.nome;
-      exercises.push({ name: finalName, sets, maxWeight });
-    }
-  });
-
-  if (exercises.length === 0) { alert("Marque pelo menos uma série."); return; }
-  
-  state.history.push({
-    id: Date.now(), date: new Date().toISOString().slice(0, 10),
-    dayName: t.dia, workoutName: t.nome, exercises
-  });
-
-  cur.checks = t.exercicios.map(e => Array(e.series).fill(false));
-  cur.customNames = {};
-  saveState(); render(); showToast("Treino arquivado! 💪");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+/* ============ HISTÓRICO ============ */
+let historyFilter = "all";
 
 function renderHistory() {
   const main = document.getElementById("main");
-  main.innerHTML = `<div class="day-header"><div><h2>📊 Histórico</h2><p class="day-subtitle">${state.history.length} sessões</p></div></div>`;
-
+  main.innerHTML = `<div class="day-header"><div><h2>📊 Histórico & Evolução</h2><p class="day-subtitle">${state.history.length} sessões</p></div></div>`;
   if (state.history.length === 0) {
-    main.innerHTML += `<div class="history-empty">Nenhum treino arquivado ainda.</div>`; return;
+    const empty = document.createElement("div");
+    empty.className = "history-empty"; empty.textContent = "Nenhum treino arquivado.";
+    main.appendChild(empty); return;
   }
+
+  const stats = document.createElement("div");
+  stats.className = "stats-grid";
+  const totalSessions = state.history.filter(h => !h.isRest).length;
+  const totalVolKg = state.history.reduce((s, h) => s + calcSessionVolume(h), 0);
+  const totalSets = state.history.reduce((s, h) => s + h.exercises.reduce((a, ex) => a + ex.sets.filter(x => x.done && !x.isWarmup).length, 0), 0);
+  const volDisplay = totalVolKg >= 10000 ? (totalVolKg/1000).toFixed(1) + "t" : Math.round(totalVolKg) + "kg";
+  stats.innerHTML = `
+    <div class="stat-card"><div class="stat-value">${totalSessions}</div><div class="stat-label">Treinos</div></div>
+    <div class="stat-card"><div class="stat-value">${totalSets}</div><div class="stat-label">Séries</div></div>
+    <div class="stat-card"><div class="stat-value">${volDisplay}</div><div class="stat-label">Volume</div></div>
+    <div class="stat-card"><div class="stat-value">${state.history.filter(h=>h.isRest).length}</div><div class="stat-label">Descansos</div></div>`;
+  main.appendChild(stats);
 
   const allExNames = new Set();
+  state.history.forEach(h => h.exercises.forEach(e => allExNames.add(e.name)));
   state.treinos.forEach(t => t.exercicios.forEach(e => allExNames.add(e.nome)));
-  Object.values(state.templates).forEach(t => t.forEach(e => allExNames.add(e.nome)));
   const options = [...allExNames].sort();
 
-  const chartCard = document.createElement("div");
-  chartCard.innerHTML = `
-    <select class="form-select" id="chartSelect" style="margin-bottom:12px;">
-      ${options.map(n => `<option value="${n}">${n}</option>`).join("")}
-    </select>
-    <canvas id="chartCanvas" style="width:100%; height:200px;"></canvas>`;
-  main.appendChild(chartCard);
-
-  const select = chartCard.querySelector("#chartSelect");
-  const canvas = chartCard.querySelector("#chartCanvas");
   if (options.length > 0) {
-    select.value = state._chartEx || options[0];
-    select.onchange = () => { state._chartEx = select.value; saveState(); updateChart(canvas, select.value); };
-    requestAnimationFrame(() => updateChart(canvas, select.value));
+    const chartCard = document.createElement("div");
+    chartCard.className = "chart-card";
+    chartCard.innerHTML = `
+      <h3>Evolução</h3>
+      <select class="form-select" id="chartSelect" style="margin-bottom:10px;">
+        ${options.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join("")}
+      </select>
+      <div class="chart-tabs">
+        <button class="chart-tab active" data-type="weight">Carga</button>
+        <button class="chart-tab" data-type="volume">Volume</button>
+        <button class="chart-tab" data-type="reps">Reps/Tempo</button>
+      </div>
+      <canvas id="chartCanvas" class="chart-canvas"></canvas>`;
+    main.appendChild(chartCard);
+
+    const select = chartCard.querySelector("#chartSelect");
+    const canvas = chartCard.querySelector("#chartCanvas");
+    let chartType = "weight";
+    select.value = state._chartEx && options.includes(state._chartEx) ? state._chartEx : options[0];
+    select.onchange = () => { state._chartEx = select.value; saveState(); drawChart(canvas, select.value, chartType); };
+    chartCard.querySelectorAll(".chart-tab").forEach(btn => {
+      btn.onclick = () => {
+        chartCard.querySelectorAll(".chart-tab").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        chartType = btn.dataset.type;
+        drawChart(canvas, select.value, chartType);
+      };
+    });
+    requestAnimationFrame(() => drawChart(canvas, select.value, chartType));
   }
 
-  const sorted = [...state.history].sort((a, b) => b.date.localeCompare(a.date));
+  const filters = document.createElement("div");
+  filters.className = "history-filters";
+  [{key:"all",l:"Tudo"},{key:"7d",l:"7 dias"},{key:"30d",l:"30 dias"},{key:"90d",l:"90 dias"}].forEach(f => {
+    const b = document.createElement("button");
+    b.className = "filter-btn" + (historyFilter === f.key ? " active" : "");
+    b.textContent = f.l;
+    b.onclick = () => { historyFilter = f.key; renderHistory(); };
+    filters.appendChild(b);
+  });
+  main.appendChild(filters);
+
+  const now = Date.now();
+  const cutoff = historyFilter === "7d" ? now - 7*86400000 :
+                 historyFilter === "30d" ? now - 30*86400000 :
+                 historyFilter === "90d" ? now - 90*86400000 : 0;
+  const sorted = [...state.history].sort((a,b) => b.timestamp - a.timestamp).filter(h => h.timestamp >= cutoff);
+
+  if (sorted.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "history-empty"; empty.textContent = "Nenhuma sessão no período.";
+    main.appendChild(empty); return;
+  }
+
   sorted.forEach(entry => {
     const item = document.createElement("div");
-    item.style.cssText = "background:var(--card); border:1px solid var(--border); border-radius:14px; margin-bottom:10px; padding:14px;";
-    item.innerHTML = `<div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong style="font-size:14px;">${fmtDate(entry.date)}</strong><span style="color:var(--muted); font-size:12px;">${entry.dayName}</span></div>
-      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">${entry.workoutName} · ${entry.exercises.length} exerc.</div>
-      <div style="display:flex; flex-direction:column; gap:4px;">${entry.exercises.map(ex => `<div style="font-size:12px;"><span style="color:var(--accent); font-weight:600;">${ex.name}</span>: ${ex.sets.filter(s => s.done).map(s => `${s.weight}×${s.reps}`).join(" · ")}</div>`).join("")}</div>
-      <button class="btn-danger" style="margin-top:10px; padding:4px 8px; font-size:11px;" onclick="delHist(${entry.id})">Apagar</button>`;
+    item.className = "history-item";
+    const vol = entry.isRest ? 0 : calcSessionVolume(entry);
+    const dur = entry.endTime && entry.startTime && entry.endTime > entry.startTime ? Math.round((entry.endTime - entry.startTime) / 60000) : 0;
+    item.innerHTML = `
+      <div class="history-summary">
+        <div>
+          <div class="history-date">${fmtDate(entry.dateLocal)} ${entry.isRest ? "😴" : ""}</div>
+          <div class="history-info">${esc(entry.dayName)} · ${esc(entry.workoutName)} · ${entry.isRest ? "Descanso" : entry.exercises.length + " exerc." + (vol>0 ? " · " + Math.round(vol) + " kg" : "") + (dur ? " · " + dur + " min" : "")}</div>
+        </div>
+        <div class="history-chevron">▸</div>
+      </div>
+      <div class="history-details">
+        ${entry.isRest ? '<p style="color:var(--muted);font-size:13px;">Descanso.</p>' :
+          entry.exercises.map(ex => `
+            <div class="history-ex">
+              <div class="history-ex-name">
+                <span>${esc(ex.name)}</span>
+                <button class="btn-small-danger" data-del-ex="${esc(ex.id)}">×</button>
+              </div>
+              <div class="history-ex-sets">${ex.sets.filter(s => s.done).map(s => `${s.isWarmup ? "W:" : ""}${s.weight ? s.weight + "kg" : "—"}×${esc(s.reps || "—")}`).join(" · ") || "—"}</div>
+              ${ex.note ? `<div class="history-ex-note">📝 ${esc(ex.note)}</div>` : ""}
+            </div>`).join("")}
+        <button class="btn-danger-outline" style="margin-top:10px;padding:6px 10px;font-size:12px;width:100%;" data-del-entry="${entry.id}">🗑 Apagar sessão</button>
+      </div>`;
+    item.querySelector(".history-summary").onclick = () => item.classList.toggle("open");
+    item.querySelectorAll("[data-del-entry]").forEach(btn => {
+      btn.onclick = async (e) => {
+        e.stopPropagation();
+        const ok = await confirmModal("Apagar sessão", "Apagar esta sessão?", "Apagar", true);
+        if (!ok) return;
+        state.history = state.history.filter(h => h.id !== entry.id);
+        saveState(); renderHistory(); showToast("Apagada", "success");
+      };
+    });
+    item.querySelectorAll("[data-del-ex]").forEach(btn => {
+      btn.onclick = async (e) => {
+        e.stopPropagation();
+        const exId = btn.dataset.delEx;
+        const ok = await confirmModal("Apagar exercício", "Remover este exercício?", "Apagar", true);
+        if (!ok) return;
+        entry.exercises = entry.exercises.filter(ex => ex.id !== exId);
+        saveState(); renderHistory(); showToast("Removido", "success");
+      };
+    });
     main.appendChild(item);
   });
 }
 
-window.delHist = (id) => {
-  if (!confirm("Apagar sessão?")) return;
-  state.history = state.history.filter(h => h.id !== id);
-  saveState(); render(); showToast("Apagada");
-};
-
-function getLastSessionForExercise(name) {
-  for (let i = state.history.length - 1; i >= 0; i--) {
-    const ex = state.history[i].exercises.find(e => e.name === name);
-    if (ex) return { date: state.history[i].date, sets: ex.sets };
-  }
-  return null;
-}
-
-function editDayName(t) {
-  document.getElementById("modalTitle").textContent = "Editar Nome do Treino";
-  document.getElementById("modalBody").innerHTML = `
-    <div class="form-group">
-      <label>Nome do Treino</label>
-      <input type="text" id="inpEditDayName" class="form-input" value="${t.nome}">
-    </div>
-  `;
-  document.getElementById("modalFooter").innerHTML = `<button class="btn-primary" id="btnSaveEditName">Salvar</button>`;
-  document.getElementById("btnSaveEditName").onclick = () => {
-    const n = document.getElementById("inpEditDayName").value.trim();
-    if (n) { t.nome = n; saveState(); closeModal(); render(); showToast("Nome atualizado!"); }
-  };
-  openModal();
-}
-
-function deleteDay(id) {
-  if (state.treinos.length <= 1) return alert("Mínimo 1 dia.");
-  if (!confirm("Excluir dia?")) return;
-  state.treinos = state.treinos.filter(t => t.id !== id);
-  delete state.current[id];
-  currentTab = state.treinos[0].id;
-  saveState(); render();
-}
-
-/* ============ BACKUP E RESET ============ */
-document.getElementById("btnBackup").onclick = () => {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
-  const a = document.createElement("a");
-  a.href = dataStr; a.download = "meu_treino_backup.json";
-  a.click();
-};
-document.getElementById("btnRestore").onclick = () => document.getElementById("fileInput").click();
-document.getElementById("fileInput").onchange = (e) => {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (evt) => {
-    try {
-      const parsed = JSON.parse(evt.target.result);
-      if (parsed.treinos && parsed.history) {
-        state = parsed; saveState(); render(); showToast("Backup Restaurado!");
-      } else alert("Arquivo inválido.");
-    } catch { alert("Erro ao ler arquivo."); }
-  };
-  reader.readAsText(file);
-};
-document.getElementById("btnResetAll").onclick = () => {
-  if (!confirm("APAGAR TUDO e voltar ao padrão?")) return;
-  localStorage.removeItem(STORAGE_KEY); location.reload();
-};
-
-/* ============ TIMER & CHART ============ */
-let timer = { duration: 60, remaining: 60, running: false, interval: null, endTime: null };
-function updateDisplay() {
-  const m = Math.floor(timer.remaining / 60); const s = timer.remaining % 60;
-  document.getElementById("timerDisplay").textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-}
-function setPreset(sec) {
-  clearInterval(timer.interval); timer.running = false; document.getElementById("startPause").textContent = "▶";
-  timer.duration = sec; timer.remaining = sec; updateDisplay();
-  document.querySelectorAll(".preset[data-sec]").forEach(b => b.classList.toggle("active", parseInt(b.dataset.sec) === sec));
-}
-function startTimer() {
-  if (timer.running) return;
-  if (timer.remaining <= 0) timer.remaining = timer.duration;
-  timer.running = true; timer.endTime = Date.now() + timer.remaining * 1000;
-  document.getElementById("startPause").textContent = "⏸";
-  timer.interval = setInterval(() => {
-    timer.remaining = Math.max(0, Math.ceil((timer.endTime - Date.now()) / 1000));
-    updateDisplay();
-    if (timer.remaining <= 0) { clearInterval(timer.interval); timer.running = false; document.getElementById("startPause").textContent = "▶"; if(navigator.vibrate) navigator.vibrate([250,100,250]); }
-  }, 200);
-  updateDisplay();
-}
-document.getElementById("startPause").onclick = () => { if(timer.running) { clearInterval(timer.interval); timer.running = false; document.getElementById("startPause").textContent = "▶"; } else startTimer(); };
-document.getElementById("resetTimer").onclick = () => { clearInterval(timer.interval); timer.running=false; timer.remaining = timer.duration; document.getElementById("startPause").textContent = "▶"; updateDisplay(); };
-document.querySelectorAll(".timer-btn[data-action]").forEach(b => b.onclick = () => { const d=parseInt(b.dataset.action); timer.remaining=Math.max(0,timer.remaining+d); if(timer.running) timer.endTime+=d*1000; updateDisplay(); });
-document.querySelectorAll(".preset[data-sec]").forEach(b => b.onclick = () => setPreset(parseInt(b.dataset.sec)));
-
-function updateChart(canvas, name) {
+function drawChart(canvas, exName, type) {
   const points = [];
-  state.history.forEach(e => {
-    const ex = e.exercises.find(x => x.name === name);
-    if (ex && ex.maxWeight > 0) points.push({ date: e.date, value: ex.maxWeight });
+  state.history.forEach(entry => {
+    if (entry.isRest) return;
+    const ex = entry.exercises.find(e => e.name === exName);
+    if (!ex) return;
+    const doneSets = ex.sets.filter(s => s.done && !s.isWarmup);
+    if (doneSets.length === 0) return;
+    let val = 0;
+    if (type === "weight") val = Math.max(...doneSets.map(s => parseWeight(s.weight)));
+    else if (type === "volume") val = doneSets.reduce((a, s) => a + parseWeight(s.weight) * parseReps(s.reps), 0);
+    else if (type === "reps") val = Math.max(...doneSets.map(s => parseReps(s.reps)));
+    if (val > 0) points.push({ ts: entry.timestamp, date: entry.dateLocal, value: val });
   });
-  points.sort((a, b) => a.date.localeCompare(b.date));
-  
-  const ctx = canvas.getContext("2d"); const r = canvas.getBoundingClientRect();
-  canvas.width = r.width * 2; canvas.height = r.height * 2; ctx.scale(2,2);
-  const W = r.width, H = r.height; ctx.clearRect(0,0,W,H);
-  if (points.length === 0) { ctx.fillStyle="#7f889e"; ctx.textAlign="center"; ctx.fillText("Sem dados", W/2, H/2); return; }
-  
-  const min = Math.min(...points.map(p=>p.value))*0.9, max = Math.max(...points.map(p=>p.value))*1.1;
-  ctx.beginPath(); ctx.strokeStyle="#22c55e"; ctx.lineWidth=2;
-  points.forEach((p,i) => {
-    const x = 20 + (i/(points.length-1||1))*(W-40);
-    const y = H-20 - ((p.value-min)/(max-min||1))*(H-40);
-    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  points.sort((a, b) => a.ts - b.ts);
+
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  if (!rect.width) return;
+  canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const W = rect.width, H = rect.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const pad = { top: 15, right: 15, bottom: 32, left: 50 };
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+
+  if (points.length === 0) {
+    ctx.fillStyle = "#7f889e"; ctx.font = "13px sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText("Sem dados", W / 2, H / 2); return;
+  }
+
+  const vals = points.map(p => p.value);
+  let minV = Math.min(...vals), maxV = Math.max(...vals);
+  if (minV === maxV) { minV = minV * 0.9; maxV = maxV * 1.1; }
+  const range = maxV - minV;
+  const yMin = Math.max(0, minV - range * 0.15);
+  const yMax = maxV + range * 0.15;
+
+  ctx.strokeStyle = "#262b38"; ctx.fillStyle = "#7f889e";
+  ctx.font = "11px sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "middle";
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + (ch / 4) * i;
+    const val = yMax - ((yMax - yMin) / 4) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    ctx.fillText(val.toFixed(0), pad.left - 6, y);
+  }
+
+  const getX = i => points.length === 1 ? pad.left + cw/2 : pad.left + (i/(points.length-1))*cw;
+  const getY = v => pad.top + ch - ((v - yMin)/(yMax - yMin))*ch;
+
+  const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
+  grad.addColorStop(0, "rgba(34,197,94,0.3)"); grad.addColorStop(1, "rgba(34,197,94,0)");
+  ctx.fillStyle = grad; ctx.beginPath();
+  ctx.moveTo(getX(0), pad.top + ch);
+  points.forEach((p, i) => ctx.lineTo(getX(i), getY(p.value)));
+  ctx.lineTo(getX(points.length - 1), pad.top + ch);
+  ctx.closePath(); ctx.fill();
+
+  ctx.strokeStyle = "#22c55e"; ctx.lineWidth = 2.5; ctx.lineJoin = "round";
+  ctx.beginPath();
+  points.forEach((p, i) => {
+    const x = getX(i), y = getY(p.value);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
   });
   ctx.stroke();
+
+  points.forEach((p, i) => {
+    const x = getX(i), y = getY(p.value);
+    ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+    ctx.fillStyle = "#22c55e"; ctx.fill();
+    ctx.strokeStyle = "#0b0d12"; ctx.lineWidth = 2; ctx.stroke();
+  });
+
+  ctx.fillStyle = "#7f889e"; ctx.font = "10px sans-serif";
+  ctx.textAlign = "center"; ctx.textBaseline = "top";
+  const step = Math.max(1, Math.ceil(points.length / 5));
+  points.forEach((p, i) => {
+    if (i % step === 0 || i === points.length - 1) {
+      const d = String(p.date).split("-");
+      ctx.fillText(`${d[2]}/${d[1]}`, getX(i), H - pad.bottom + 8);
+    }
+  });
 }
 
-function fmtDate(iso) { const [y,m,d]=iso.split("-"); return `${d}/${m}/${y}`; }
-function showToast(m) { const el=document.getElementById("toast"); el.textContent=m; el.classList.add("show"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("show"),2200); }
+/* ============ BACKUP / RESTORE / RESET ============ */
+document.getElementById("btnBackup").onclick = async () => {
+  const ok = await confirmModal("Gerar Backup",
+    "Salvar arquivo com todos os dados?<br><br>Guarde em local seguro.", "Salvar", false);
+  if (!ok) return;
+  try {
+    const json = JSON.stringify(state, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const filename = `meu_treino_backup_${getLocalDateStr()}.json`;
 
-ensureData(); if(currentTab!=="historico"){ const d=state.treinos.find(x=>x.id===currentTab); setPreset(d?d.descanso:90||90); }
-updateDisplay(); render();
-if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+    if (navigator.share && navigator.canShare) {
+      try {
+        const file = new File([blob], filename, { type: "application/json" });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: "Backup" });
+          state.lastBackup = new Date().toISOString();
+          state._hideBackupReminder = null;
+          saveState(); render(); showToast("Compartilhado", "success");
+          return;
+        }
+      } catch (e) {
+        if (e && e.name === "AbortError") return;
+      }
+    }
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+
+    state.lastBackup = new Date().toISOString();
+    state._hideBackupReminder = null;
+    saveState(); render();
+    showToast("Backup gerado!", "success");
+  } catch (e) { showToast("Erro: " + e.message, "error"); }
+};
+
+document.getElementById("btnRestore").onclick = () => document.getElementById("fileInput").click();
+document.getElementById("fileInput").onchange = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (evt) => {
+    let parsed;
+    try { parsed = JSON.parse(evt.target.result); }
+    catch { showToast("JSON inválido", "error"); return; }
+    if (!parsed || !Array.isArray(parsed.treinos) || !Array.isArray(parsed.history)) {
+      showToast("Backup incompleto", "error"); return;
+    }
+    for (const t of parsed.treinos) {
+      if (!t.id || !t.dia || !t.nome || !Array.isArray(t.exercicios)) { showToast("Treino inválido", "error"); return; }
+      for (const ex of t.exercicios) {
+        if (!ex.nome || typeof ex.series !== "number") { showToast("Exercício inválido", "error"); return; }
+      }
+    }
+    const ok = await confirmModal("Restaurar",
+      `Backup com ${parsed.treinos.length} treino(s) e ${parsed.history.length} sessão(ões).<br><br><strong>Substituirá todos os dados.</strong>`,
+      "Restaurar", true);
+    if (!ok) return;
+    try { localStorage.setItem("treinoApp_backup_auto", JSON.stringify(state)); } catch {}
+    showToast("Restaurando...", "warn");
+    state = migrateData(parsed);
+    currentTab = getTodayTab();
+    saveState(); render();
+    showToast("Restaurado!", "success");
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+};
+
+document.getElementById("btnResetAll").onclick = async () => {
+  const ok = await confirmModal("Zerar", "Apaga TUDO: treinos, histórico, cargas. Continuar?", "Continuar", true);
+  if (!ok) return;
+  document.getElementById("modalTitle").textContent = "Confirmação Final";
+  document.getElementById("modalBody").innerHTML = `
+    <p style="color:var(--danger);font-size:14px;font-weight:600;">Irreversível!</p>
+    <p style="font-size:13px;">Digite <strong>ZERAR</strong>:</p>
+    <input type="text" id="zeroConfirm" class="form-input" autocomplete="off">`;
+  const footer = document.getElementById("modalFooter");
+  footer.innerHTML = `<button class="btn-secondary" id="mCancel">Cancelar</button><button class="btn-danger" id="mZero">Zerar</button>`;
+  footer.querySelector("#mCancel").onclick = closeModal;
+  footer.querySelector("#mZero").onclick = () => {
+    if (document.getElementById("zeroConfirm").value.trim() !== "ZERAR") { showToast("Digite ZERAR", "error"); return; }
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(TIMER_KEY);
+      localStorage.removeItem("treinoApp_backup_auto");
+      localStorage.removeItem(LEGACY_INSTALL_KEY);
+      LEGACY_KEYS.forEach(k => localStorage.removeItem(k));
+    } catch {}
+    location.reload();
+  };
+  openModal();
+};
+
+/* ============ TIMER ============ */
+function saveTimer() {
+  safeSet(TIMER_KEY, JSON.stringify({
+    duration: timerState.duration, remaining: timerState.remaining,
+    running: timerState.running, endTime: timerState.endTime, muted: timerState.muted
+  }));
+}
+function loadTimer() {
+  try {
+    const raw = safeGet(TIMER_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    timerState.duration = d.duration || 60;
+    timerState.muted = !!d.muted;
+    if (d.running && d.endTime) {
+      const rem = Math.ceil((d.endTime - Date.now()) / 1000);
+      if (rem > 0) { timerState.running = true; timerState.endTime = d.endTime; timerState.remaining = rem; startTimerInterval(); }
+      else { timerState.remaining = 0; timerState.running = false; }
+    } else {
+      timerState.remaining = d.remaining || d.duration || 60;
+      timerState.running = false;
+    }
+  } catch {}
+}
+function setPresetTimer(sec, force) {
+  if (timerState.running && !force) return;
+  clearInterval(timerState.interval); timerState.running = false;
+  timerState.duration = sec; timerState.remaining = sec; timerState.endTime = null;
+  document.getElementById("startPause").textContent = "▶";
+  document.querySelectorAll(".preset[data-sec]").forEach(b => b.classList.toggle("active", parseInt(b.dataset.sec) === sec));
+  updateTimerDisplay(); saveTimer();
+}
+function updateTimerDisplay() {
+  const m = Math.floor(timerState.remaining / 60);
+  const s = timerState.remaining % 60;
+  document.getElementById("timerDisplay").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+function startTimerInterval() {
+  clearInterval(timerState.interval);
+  timerState.interval = setInterval(() => {
+    if (!timerState.running) return;
+    const rem = Math.max(0, Math.ceil((timerState.endTime - Date.now()) / 1000));
+    timerState.remaining = rem;
+    updateTimerDisplay();
+    if (rem <= 0) {
+      clearInterval(timerState.interval); timerState.running = false;
+      document.getElementById("startPause").textContent = "▶";
+      saveTimer(); onTimerEnd();
+    }
+  }, 200);
+}
+function startTimer() {
+  if (timerState.running) return;
+  if (timerState.remaining <= 0) timerState.remaining = timerState.duration;
+  timerState.running = true;
+  timerState.endTime = Date.now() + timerState.remaining * 1000;
+  document.getElementById("startPause").textContent = "⏸";
+  startTimerInterval(); updateTimerDisplay(); saveTimer();
+}
+function stopTimer() {
+  if (!timerState.running) return;
+  timerState.remaining = Math.max(0, Math.ceil((timerState.endTime - Date.now()) / 1000));
+  timerState.running = false; clearInterval(timerState.interval);
+  document.getElementById("startPause").textContent = "▶";
+  updateTimerDisplay(); saveTimer();
+}
+function onTimerEnd() {
+  // Item 5: se já passou muito tempo, não bipar
+  const elapsed = Date.now() - (timerState.endTime || 0);
+  if (elapsed > 10000) {
+    // só mostra o toast
+    showToast("Descanso terminou há um tempo", "warn");
+    return;
+  }
+  if (!timerState.muted) { beep(0); beep(250); beep(500); }
+  if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300]);
+  const bar = document.getElementById("timerBar");
+  bar.classList.add("ringing");
+  setTimeout(() => bar.classList.remove("ringing"), 3000);
+  showToast("Descanso finalizado! 💪", "success");
+}
+
+document.getElementById("startPause").onclick = () => { if (timerState.running) stopTimer(); else startTimer(); };
+document.getElementById("resetTimer").onclick = () => {
+  clearInterval(timerState.interval); timerState.running = false;
+  timerState.remaining = timerState.duration; timerState.endTime = null;
+  document.getElementById("startPause").textContent = "▶";
+  updateTimerDisplay(); saveTimer();
+};
+document.querySelectorAll(".timer-btn[data-action]").forEach(btn => {
+  btn.onclick = () => {
+    const d = parseInt(btn.dataset.action);
+    if (timerState.running && timerState.endTime) {
+      timerState.endTime += d * 1000;
+      timerState.remaining = Math.max(0, Math.ceil((timerState.endTime - Date.now()) / 1000));
+    } else {
+      timerState.remaining = Math.max(0, timerState.remaining + d);
+    }
+    updateTimerDisplay(); saveTimer();
+  };
+});
+document.querySelectorAll(".preset[data-sec]").forEach(btn => {
+  btn.onclick = () => setPresetTimer(parseInt(btn.dataset.sec), true);
+});
+document.getElementById("muteBtn").onclick = () => {
+  timerState.muted = !timerState.muted;
+  document.getElementById("muteBtn").textContent = timerState.muted ? "🔕" : "🔔";
+  saveTimer();
+};
+
+/* ============ VISIBILITY ============ */
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    ensureAudio(); // retomar áudio (item 11)
+    if (timerState.running && timerState.endTime) {
+      const rem = Math.max(0, Math.ceil((timerState.endTime - Date.now()) / 1000));
+      timerState.remaining = rem;
+      if (rem <= 0) {
+        timerState.running = false;
+        clearInterval(timerState.interval);
+        document.getElementById("startPause").textContent = "▶";
+        saveTimer(); updateTimerDisplay();
+        onTimerEnd(); // onTimerEnd checa elapsed > 10s
+      } else updateTimerDisplay();
+    }
+    if (Object.keys(state.sessionStarted || {}).length > 0) requestWakeLock();
+  }
+});
+
+/* ============ SERVICE WORKER ============ */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).then(reg => {
+      reg.addEventListener("updatefound", () => {
+        const nw = reg.installing;
+        nw.addEventListener("statechange", () => {
+          if (nw.state === "installed" && navigator.serviceWorker.controller) {
+            swUpdateAvailable = true;
+            renderUpdateBanner();
+          }
+        });
+      });
+    }).catch(err => console.log("SW:", err));
+  });
+}
+
+/* ============ INIT ============ */
+cleanupLegacyKeys();
+ensureData();
+setupIcons();
+loadTimer();
+if (currentTab !== "historico") {
+  const d = state.treinos.find(x => x.id === currentTab);
+  if (!d) currentTab = getTodayTab();
+  if (!timerState.running) setPresetTimer(d ? (d.descanso || 90) : 90, true);
+}
+document.getElementById("muteBtn").textContent = timerState.muted ? "🔕" : "🔔";
+updateTimerDisplay();
+render();
+
+window.addEventListener("error", (e) => console.error("Erro:", e.message));
+window.addEventListener("unhandledrejection", (e) => console.error("Promise:", e.reason));
 </script>
 </body>
 </html>
